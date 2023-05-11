@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "CleanChat.Application/1.0.0": {
+        "dependencies": {
+          "CleanChat.Domain": "1.0.0"
+        },
+        "runtime": {
+          "CleanChat.Application.dll": {}
+        }
+      },
+      "CleanChat.Domain/1.0.0": {
+        "runtime": {
+          "CleanChat.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CleanChat.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CleanChat.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

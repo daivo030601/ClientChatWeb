@@ -1,0 +1,40 @@
+﻿using CleanChat.Domain;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CleanChat.Infrastructure
+{
+    public class ChatDbContext : DbContext
+    {
+        public ChatDbContext(DbContextOptions<ChatDbContext> options) : base(options)
+        {
+            
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message>()
+                .HasOne<Client>(c => c.Client)
+                .WithMany(m => m.Messages)
+                .HasForeignKey(c => c.ClientId);
+
+            modelBuilder.Entity<Message>()
+                .HasOne<Topic>(c => c.Topic)
+                .WithMany(m => m.Messages)
+                .HasForeignKey(c => c.TopicId);
+
+            modelBuilder.Entity<ClientTopic>()
+                .HasKey(c => new { c.ClientId, c.TopicId });
+
+        }
+
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<ClientTopic> ClientTopics { get; set; }
+    }
+}
