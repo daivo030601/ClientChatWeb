@@ -1,4 +1,4 @@
-﻿using CleanChat.Application.Repositories;
+﻿using CleanChat.Application.Interfaces;
 using CleanChat.Domain;
 using CleanChat.Domain.Entities;
 using CleanChat.Infrastructure.context;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanChat.Infrastructure
+namespace CleanChat.Infrastructure.Repositories
 {
     public class TopicRepository : ITopicRepository
     {
