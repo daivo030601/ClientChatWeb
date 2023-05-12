@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanChat.Domain.DTOs
+namespace CleanChat.Domain.DTOs.Responses
 {
-    internal class MessageReceiveDto
+    public class MessageReceiveDto
     {
         public int MessageId { get; set; }
         public DateTime sentDate { get; set; }

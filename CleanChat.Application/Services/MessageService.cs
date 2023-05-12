@@ -4,6 +4,15 @@ using CleanChat.Domain;
 using CleanChat.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using CleanChat.Domain.DTOs.Requests;
+using CleanChat.Domain.DTOs.Responses;
+using CleanChat.Application.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 
 namespace CleanChat.Application.Services
 {
@@ -16,25 +25,25 @@ namespace CleanChat.Application.Services
             _messageRepository = messageRepository;
         }
 
-        public List<Message> GetAllMessages()
+        public List<MessageReceiveDto> GetAllMessages()
         {
             var messages = _messageRepository.GetAllMessages();
             return messages;
         }
 
-        public List<Message> GetMessagesByTopic(int topicId)
+        public List<MessageReceiveDto> GetMessagesByTopic(int topicId)
         {
             var messages = _messageRepository.GetMessagesByTopic(topicId);
             return messages;
         }
 
-        public Message GetMessageById(int id)
+        public MessageReceiveDto GetMessageById(int id)
         {
             var message = _messageRepository.GetMessageById(id);
             return message;
         }
 
-        public Message AddMessage(Message message)
+        public MessageSendDto AddMessage(MessageSendDto message)
         {
             _messageRepository.AddMessage(message);
             return message;

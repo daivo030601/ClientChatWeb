@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using CleanChat.API.Response;
 using CleanChat.Application.Services.Interface;
-using CleanChat.Domain.DTOs;
+using CleanChat.Domain.DTOs.Requests;
+using CleanChat.Domain.DTOs.Responses;
 using CleanChat.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,9 +16,10 @@ namespace CleanChat.API.Controllers
         private readonly IMessageService _service;
         private readonly IMapper _mapper;
 
-        public MessageController(IMessageService service)
+        public MessageController(IMessageService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -26,7 +28,8 @@ namespace CleanChat.API.Controllers
             try
             {
                 var messages = _service.GetAllMessages();
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
+                var response = _mapper.Map<List<MessageReceiveDto>>(messages);
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
             }
             catch (Exception e)
             {
@@ -44,7 +47,8 @@ namespace CleanChat.API.Controllers
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Message not found"));
                 }
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, message));
+                var response = _mapper.Map<MessageReceiveDto>(message);
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
             }
             catch (Exception e)
             {
@@ -53,12 +57,13 @@ namespace CleanChat.API.Controllers
         }
 
         [HttpGet("topic/{topicId}")]
-        public ActionResult<List<Message>> GetMessagesByTopic(int topicId)
+        public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int topicId)
         {
             try
             {
                 var messages = _service.GetMessagesByTopic(topicId);
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
+                var response = _mapper.Map<List<MessageReceiveDto>>(messages);
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
             }
             catch (Exception e)
             {
@@ -67,13 +72,13 @@ namespace CleanChat.API.Controllers
         }
 
         [HttpPost("{topicId}")]
-        public ActionResult AddMessage(int topicId, Message message)
+        public ActionResult AddMessage(int topicId, [FromBody] MessageSendDto message)
         {
             try
             {
-                message.TopicId = topicId; // set the topicId of the message
-                var messageDto = _mapper.Map<MessageSendDto>(message); // map Message entity to MessageDto
-                _service.AddMessage(message);
+                message.TopicId = topicId;
+                var messageEntity = _mapper.Map<MessageSendDto>(message);
+                _service.AddMessage(messageEntity);
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, "Message added successfully"));
             }
             catch (Exception e)
