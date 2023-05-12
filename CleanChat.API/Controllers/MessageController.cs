@@ -73,7 +73,7 @@ namespace CleanChat.API.Controllers
             {
                 message.TopicId = topicId; // set the topicId of the message
                 var messageDto = _mapper.Map<MessageSendDto>(message); // map Message entity to MessageDto
-                _service.AddMessage(messageDto);
+                _service.AddMessage(message);
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, "Message added successfully"));
             }
             catch (Exception e)

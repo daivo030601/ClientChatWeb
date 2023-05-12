@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using CleanChat.Domain.DTOs;
 using CleanChat.Domain.Entities;
 
-namespace CleanChat.Application.Services.Interface
+namespace CleanChat.Application.Repositories
 {
-    public interface IMessageService
+    public interface IMessageRepository
     {
         List<Message> GetAllMessages();
         List<Message> GetMessagesByTopic(int topicId);
