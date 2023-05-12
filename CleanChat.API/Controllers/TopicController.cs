@@ -1,5 +1,5 @@
 ﻿using CleanChat.API.Response;
-using CleanChat.Application.Services.Interface;
+using CleanChat.Application.Interfaces;
 using CleanChat.Domain;
 using CleanChat.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;

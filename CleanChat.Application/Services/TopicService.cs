@@ -1,5 +1,4 @@
-﻿using CleanChat.Application.Repositories;
-using CleanChat.Application.Services.Interface;
+﻿using CleanChat.Application.Interfaces;
 using CleanChat.Domain;
 using CleanChat.Domain.Entities;
 using System;
