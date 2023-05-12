@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanChat.API.Migrations
 {
     [DbContext(typeof(ChatDbContext))]
-    [Migration("20230511101005_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230512044623_initdatabase")]
+    partial class initdatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,13 @@ namespace CleanChat.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CleanChat.Domain.Client", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Client", b =>
                 {
-                    b.Property<int>("ClientId")
+                    b.Property<int?>("ClientId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ClientId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -46,7 +46,7 @@ namespace CleanChat.API.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.ClientTopic", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.ClientTopic", b =>
                 {
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
@@ -61,7 +61,7 @@ namespace CleanChat.API.Migrations
                     b.ToTable("ClientTopics");
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.Message", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Message", b =>
                 {
                     b.Property<int>("MessageId")
                         .ValueGeneratedOnAdd()
@@ -71,6 +71,10 @@ namespace CleanChat.API.Migrations
 
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ClientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -91,7 +95,7 @@ namespace CleanChat.API.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.Topic", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Topic", b =>
                 {
                     b.Property<int>("TopicId")
                         .ValueGeneratedOnAdd()
@@ -108,30 +112,30 @@ namespace CleanChat.API.Migrations
                     b.ToTable("Topics");
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.ClientTopic", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.ClientTopic", b =>
                 {
-                    b.HasOne("CleanChat.Domain.Client", null)
+                    b.HasOne("CleanChat.Domain.Entities.Client", null)
                         .WithMany("ClientTopics")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CleanChat.Domain.Topic", null)
+                    b.HasOne("CleanChat.Domain.Entities.Topic", null)
                         .WithMany("ClientTopics")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.Message", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Message", b =>
                 {
-                    b.HasOne("CleanChat.Domain.Client", "Client")
+                    b.HasOne("CleanChat.Domain.Entities.Client", "Client")
                         .WithMany("Messages")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CleanChat.Domain.Topic", "Topic")
+                    b.HasOne("CleanChat.Domain.Entities.Topic", "Topic")
                         .WithMany("Messages")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -142,14 +146,14 @@ namespace CleanChat.API.Migrations
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.Client", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Client", b =>
                 {
                     b.Navigation("ClientTopics");
 
                     b.Navigation("Messages");
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.Topic", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Topic", b =>
                 {
                     b.Navigation("ClientTopics");
 

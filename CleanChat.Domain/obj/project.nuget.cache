@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "PsGqwPhtFdT+tWyQ5ZnDBza3Ymzn7WIZUBcLO/HTcbCQIt4la8w8XmxkkdqDNzQbQp32noT0tVlNVJY/G8yp2A==",
+  "dgSpecHash": "ypg1z9+6t2nc8quiJJ5A5vEEvrx/sF//LU9jojctaFos6d85v3WZOnL06GlESaayEg67LhL81dUQBPvrZv5JoQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ttran26_mantu\\data\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\ttran26_mantu\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\ttran26_mantu\\.nuget\\packages\\automapper.collection\\9.0.0\\automapper.collection.9.0.0.nupkg.sha512",
+    "C:\\Users\\ttran26_mantu\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\ttran26_mantu\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\ttran26_mantu\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\ttran26_mantu\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\ttran26_mantu\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\ttran26_mantu\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
