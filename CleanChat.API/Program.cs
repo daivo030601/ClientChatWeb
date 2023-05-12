@@ -1,8 +1,7 @@
 using AutoMapper;
 using CleanChat.Application.Repositories;
+using CleanChat.Application.Interfaces;
 using CleanChat.Application.Services;
-using CleanChat.Application.Services.Interface;
-using CleanChat.Infrastructure;
 using CleanChat.Infrastructure.context;
 using CleanChat.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -30,11 +29,11 @@ builder.Services.AddDbContext<ChatDbContext>(option => option.UseSqlServer(confi
 builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 builder.Services.AddScoped<ITopicService, TopicService>();
 
-builder.Services.AddDbContext<ChatDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IClientServices, ClientServices>();
 
 var app = builder.Build();
 
