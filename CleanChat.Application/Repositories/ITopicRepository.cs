@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CleanChat.Domain;
+using CleanChat.Domain.Entities;
 
-namespace CleanChat.Application
+namespace CleanChat.Application.Repositories
 {
     public interface ITopicRepository
     {

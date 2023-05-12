@@ -1,5 +1,7 @@
-﻿using CleanChat.Application;
+﻿using CleanChat.Application.Repositories;
 using CleanChat.Domain;
+using CleanChat.Domain.Entities;
+using CleanChat.Infrastructure.context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,7 @@ namespace CleanChat.Infrastructure
             return topic;
         }
 
-        public List<Topic> GetAllAvaiableTopics()
+        public List<Topic> GetAllTopics()
         {
             return _chatDbContext.Topics.ToList();
         }

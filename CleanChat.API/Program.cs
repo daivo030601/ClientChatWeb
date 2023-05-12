@@ -1,5 +1,8 @@
-using CleanChat.Application;
+using CleanChat.Application.Repositories;
+using CleanChat.Application.Services;
+using CleanChat.Application.Services.Interface;
 using CleanChat.Infrastructure;
+using CleanChat.Infrastructure.context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanChat.Domain", "CleanChat.Domain\CleanChat.Domain.csproj", "{9B35AA23-0121-4EDE-8F53-0FC5961D5306}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanChat.Domain", "CleanChat.Domain\CleanChat.Domain.csproj", "{9B35AA23-0121-4EDE-8F53-0FC5961D5306}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanChat.Application", "CleanChat.Application\CleanChat.Application.csproj", "{11B85023-1498-4945-9C71-79AB79486BC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanChat.Application", "CleanChat.Application\CleanChat.Application.csproj", "{11B85023-1498-4945-9C71-79AB79486BC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanChat.Infrastructure", "CleanChat.Infrastructure\CleanChat.Infrastructure.csproj", "{863D9E44-CC63-45B6-90A6-F3FA59221393}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanChat.Infrastructure", "CleanChat.Infrastructure\CleanChat.Infrastructure.csproj", "{863D9E44-CC63-45B6-90A6-F3FA59221393}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanChat.API", "CleanChat.API\CleanChat.API.csproj", "{4F49B57F-D835-450B-A22F-47CC590520B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanChat.API", "CleanChat.API\CleanChat.API.csproj", "{4F49B57F-D835-450B-A22F-47CC590520B5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRSexample", "..\WorkAdvanture\CQRSexample\CQRSexample.csproj", "{45DDEC95-2CC5-4DAE-85BF-1BB476E5D91C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.SharedKernel", "..\sample clean\CleanArchitecture\src\Clean.Architecture.SharedKernel\Clean.Architecture.SharedKernel.csproj", "{B875CEA0-F75D-42DF-80D8-22B485AD8F33}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.Infrastructure", "..\sample clean\CleanArchitecture\src\Clean.Architecture.Infrastructure\Clean.Architecture.Infrastructure.csproj", "{3A06DEDF-E8F7-418D-AD44-3057380540BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clean.Architecture.Core", "..\sample clean\CleanArchitecture\src\Clean.Architecture.Core\Clean.Architecture.Core.csproj", "{9FAC992A-BFFB-48F7-A60F-E78813BB7653}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +45,18 @@ Global
 		{45DDEC95-2CC5-4DAE-85BF-1BB476E5D91C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45DDEC95-2CC5-4DAE-85BF-1BB476E5D91C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45DDEC95-2CC5-4DAE-85BF-1BB476E5D91C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B875CEA0-F75D-42DF-80D8-22B485AD8F33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B875CEA0-F75D-42DF-80D8-22B485AD8F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B875CEA0-F75D-42DF-80D8-22B485AD8F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B875CEA0-F75D-42DF-80D8-22B485AD8F33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A06DEDF-E8F7-418D-AD44-3057380540BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A06DEDF-E8F7-418D-AD44-3057380540BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A06DEDF-E8F7-418D-AD44-3057380540BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A06DEDF-E8F7-418D-AD44-3057380540BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FAC992A-BFFB-48F7-A60F-E78813BB7653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FAC992A-BFFB-48F7-A60F-E78813BB7653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FAC992A-BFFB-48F7-A60F-E78813BB7653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FAC992A-BFFB-48F7-A60F-E78813BB7653}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

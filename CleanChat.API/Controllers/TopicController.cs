@@ -1,5 +1,7 @@
-﻿using CleanChat.Application;
+﻿using CleanChat.API.Response;
+using CleanChat.Application.Services.Interface;
 using CleanChat.Domain;
+using CleanChat.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,8 +20,15 @@ namespace CleanChat.API.Controllers
         [HttpGet]
         public ActionResult<List<Topic>> Get()
         {
-            var topicList = _service.GetAllTopics();
-            return Ok(topicList);
+            try
+            {
+                var topics = _service.GetAllTopics();
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, topics));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
+            }
         }
 
         [HttpPost]

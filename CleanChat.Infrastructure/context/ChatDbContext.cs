@@ -1,4 +1,5 @@
 ﻿using CleanChat.Domain;
+using CleanChat.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,24 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanChat.Infrastructure
+namespace CleanChat.Infrastructure.context
 {
     public class ChatDbContext : DbContext
     {
         public ChatDbContext(DbContextOptions<ChatDbContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Message>()
-                .HasOne<Client>(c => c.Client)
+                .HasOne(c => c.Client)
                 .WithMany(m => m.Messages)
                 .HasForeignKey(c => c.ClientId);
 
             modelBuilder.Entity<Message>()
-                .HasOne<Topic>(c => c.Topic)
+                .HasOne(c => c.Topic)
                 .WithMany(m => m.Messages)
                 .HasForeignKey(c => c.TopicId);
 

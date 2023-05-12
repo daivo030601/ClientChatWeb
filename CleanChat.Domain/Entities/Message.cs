@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CleanChat.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanChat.Domain
+namespace CleanChat.Domain.Entities
 {
     public class Message
     {
