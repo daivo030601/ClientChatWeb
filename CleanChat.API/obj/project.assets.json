@@ -3776,19 +3776,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tvo9_mantu\\.nuget\\packages\\": {}
+    "C:\\Users\\ttran26_mantu\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Work\\CleanChatApplication\\CleanChat.API\\CleanChat.API.csproj",
+      "projectUniqueName": "C:\\Users\\ttran26_mantu\\data\\ClientChatWeb\\CleanChat.API\\CleanChat.API.csproj",
       "projectName": "CleanChat.API",
-      "projectPath": "C:\\Work\\CleanChatApplication\\CleanChat.API\\CleanChat.API.csproj",
-      "packagesPath": "C:\\Users\\tvo9_mantu\\.nuget\\packages\\",
-      "outputPath": "C:\\Work\\CleanChatApplication\\CleanChat.API\\obj\\",
+      "projectPath": "C:\\Users\\ttran26_mantu\\data\\ClientChatWeb\\CleanChat.API\\CleanChat.API.csproj",
+      "packagesPath": "C:\\Users\\ttran26_mantu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ttran26_mantu\\data\\ClientChatWeb\\CleanChat.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\tvo9_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ttran26_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3802,11 +3807,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Work\\CleanChatApplication\\CleanChat.Application\\CleanChat.Application.csproj": {
-              "projectPath": "C:\\Work\\CleanChatApplication\\CleanChat.Application\\CleanChat.Application.csproj"
+            "C:\\Users\\ttran26_mantu\\data\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj": {
+              "projectPath": "C:\\Users\\ttran26_mantu\\data\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj"
             },
-            "C:\\Work\\CleanChatApplication\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj": {
-              "projectPath": "C:\\Work\\CleanChatApplication\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj"
+            "C:\\Users\\ttran26_mantu\\data\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\ttran26_mantu\\data\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj"
             }
           }
         }
