@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CleanChat.Domain;
 using CleanChat.Domain.DTOs.Requests;
+using CleanChat.Domain.DTOs.Responses;
 using CleanChat.Domain.Entities;
 
 namespace CleanChat.Application.Interfaces
@@ -13,5 +14,6 @@ namespace CleanChat.Application.Interfaces
     {
         List<Topic> GetAllTopics();
         Topic CreateTopic(Topic topic);
+        List<ClientTopic>? GetClientsFromTopic(int topic);
     }
 }

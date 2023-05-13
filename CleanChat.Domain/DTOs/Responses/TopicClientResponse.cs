@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace CleanChat.Domain.DTOs.Responses
 {
-    public class SubscribeTopicResponse
+    public class TopicClientResponse
     {
-        public bool? Status { get; set; }
+        public int TopicId { get; set; }
+        public string TopicName { get; set; } = string.Empty;
     }
 }

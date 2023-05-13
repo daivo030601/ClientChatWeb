@@ -39,5 +39,32 @@ namespace CleanChat.Application.Services
             }
             return null;
         }
+
+        public SubscribeTopicResponse SubscribeTopic(SubscribeTopicRequest request)
+        {
+            SubscribeTopicResponse response = new SubscribeTopicResponse();
+            ClientTopic entity = new() { TopicId = request.TopicId, ClientId = request.ClientId };
+            var result = _repository.SubscribeTopic(entity);
+            response.Status = result;
+            return response;
+        }
+
+        public List<TopicClientResponse>? GetTopicsFromClient(TopicsClientRequest request)
+        {
+            var topics = _repository.GetTopicsFromClient( request.ClientId );
+            var result = new List<TopicClientResponse>();
+            if ( topics != null )
+            {
+                foreach ( var topic in topics )
+                {
+                    var response = new TopicClientResponse();
+                    response.TopicId = topic.TopicId;
+                    response.TopicName = topic.Topic?.TopicName;
+                    result.Add(response);
+                }
+                return result;
+            }
+            return null;
+        }
     }
 }
