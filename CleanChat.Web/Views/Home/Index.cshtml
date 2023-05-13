@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Topic>
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Topics</h2>
+        <hr />
+        <ul class="list-group">
+            @foreach (var topic in Model)
+            {
+                <li class="list-group-item">
+                    <a href="@Url.Action("Topic", "Home", new { topicId = topic.TopicId })">@topic.TopicName</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-9">
+        @if (ViewBag.Topic != null)
+        {
+            <h2>@ViewBag.Topic.Name</h2>
+            <hr />
+            <div class="card">
+                <div class="card-body">
+                    <div id="messages">
+                        @foreach (var message in ViewBag.Topic.Messages)
+                        {
+                            <div class="message">
+                                <div class="message-username">@message.Username</div>
+                                <div class="message-text">@message.Text</div>
+                                <div class="message-time">@message.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</div>
+                            </div>
+                        }
+                    </div>
+                    <form id="new-message-form" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="username" placeholder="Username" />
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="text" placeholder="Message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
