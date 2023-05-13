@@ -20,14 +20,26 @@ namespace CleanChat.Infrastructure.Repositories
 
         public Topic CreateTopic(Topic topic)
         {
-            _chatDbContext.Topics.Add(topic);
-            _chatDbContext.SaveChanges();
-            return topic;
+            try
+            {
+                _chatDbContext.Topics.Add(topic);
+                _chatDbContext.SaveChanges();
+                return topic;
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public List<Topic> GetAllTopics()
         {
-            return _chatDbContext.Topics.ToList();
+            try
+            {
+                return _chatDbContext.Topics.ToList();
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

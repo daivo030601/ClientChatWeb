@@ -1,5 +1,7 @@
 ﻿using CleanChat.Application.Interfaces;
 using CleanChat.Domain;
+using CleanChat.Domain.DTOs.Requests;
+using CleanChat.Domain.DTOs.Responses;
 using CleanChat.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,18 +18,27 @@ namespace CleanChat.Application.Services
         {
             _topicRepository = topicRepository;
         }
-        public List<Topic> GetAllTopics()
+        public List<GetTopicResponse> GetAllTopics()
         {
             var topics = _topicRepository.GetAllTopics();
-
-            return topics;
+            var result = new List<GetTopicResponse>();
+            foreach (var topic in topics)
+            {
+                var response = new GetTopicResponse();
+                response.TopicId = topic.TopicId;
+                response.TopicName = topic.TopicName;
+                result.Add(response);
+            }
+            return result;
         }
 
-        public Topic CreateTopic(Topic topic)
+        public CreateTopicResponse CreateTopic(CreateTopicRequest request)
         {
-            _topicRepository.CreateTopic(topic);
-
-            return topic;
+            Topic topic = new Topic() { TopicName = request.TopicName };
+            var result = _topicRepository.CreateTopic(topic);
+            CreateTopicResponse response = new CreateTopicResponse();
+            response.TopicId = result.TopicId;
+            return response;
         }
     }
 }
