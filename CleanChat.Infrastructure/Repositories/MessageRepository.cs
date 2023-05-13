@@ -13,42 +13,68 @@ namespace CleanChat.Infrastructure.Repositories
     public class MessageRepository : IMessageRepository
     {
         private readonly ChatDbContext _context;
-        private readonly IMapper _mapper;
 
-        public MessageRepository(ChatDbContext context, IMapper mapper)
+
+        public MessageRepository(ChatDbContext context, )
         {
             _context = context;
-            _mapper = mapper;
         }
 
-        public List<MessageReceiveDto> GetAllMessages()
+        public List<Message> GetAllMessages()
         {
-            var messages = _context.Messages.ToList();
-            var mappedMessages = _mapper.Map<List<MessageReceiveDto>>(messages);
-            return mappedMessages;
+            var entities = _context.Messages.Join(
+                _context.Clients, m => m.ClientId, c => c.ClientId, (m, c) => new Message
+            {
+                    MessageId = m.MessageId,
+                    SentDate = m.SentDate,
+                    Content = m.Content,
+                    ClientName = c.Name,
+                    ClientId = m.ClientId,
+                    TopicId = m.TopicId,
+            }).ToList();
+
+            return entities;
         }
 
-        public List<MessageReceiveDto> GetMessagesByTopic(int topicId)
+        public List<Message> GetMessagesByTopic(int topicId)
         {
-            var messages = _context.Messages.Where(m => m.TopicId == topicId).ToList();
-            var mappedMessages = _mapper.Map<List<MessageReceiveDto>>(messages);
-            return mappedMessages;
+            var entities = _context.Messages.Join(
+                _context.Clients, m => m.ClientId, c => c.ClientId, ( m, c ) => new Message
+                {
+                    MessageId = m.MessageId,
+                    SentDate = m.SentDate,
+                    Content = m.Content,
+                    ClientName = c.Name,
+                    ClientId = m.ClientId,
+                    TopicId = m.TopicId,
+                }).Where(m => m.TopicId == topicId).ToList();
+        
+            return entities;
         }
 
-        public MessageReceiveDto GetMessageById(int id)
+        public Message GetMessageById(int id)
         {
-            var message = _context.Messages.Find(id);
-            var mappedMessage = _mapper.Map<MessageReceiveDto>(message);
-            return mappedMessage;
+            var entity = _context.Messages.Join(
+                _context.Clients, m => m.ClientId, c => c.ClientId, ( m, c ) => new Message
+                {
+                    MessageId = m.MessageId,
+                    SentDate = m.SentDate,
+                    Content = m.Content,
+                    ClientName = c.Name,
+                    ClientId = m.ClientId,
+                    TopicId = m.TopicId,
+                }).FirstOrDefault(m => m.MessageId == id);
+
+
+            return entity;
         }
 
-        public MessageSendDto AddMessage(MessageSendDto message)
+        public Message AddMessage(Message entity)
         {
-            var mappedMessage = _mapper.Map<Message>(message);
-            _context.Messages.Add(mappedMessage);
+            _context.Messages.Add(entity);
             _context.SaveChanges();
-            var mappedResult = _mapper.Map<MessageSendDto>(mappedMessage);
-            return mappedResult;
+
+            return entity;
         }
     }
 }

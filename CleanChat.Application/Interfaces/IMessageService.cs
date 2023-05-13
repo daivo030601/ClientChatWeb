@@ -11,6 +11,6 @@ namespace CleanChat.Application.Services.Interface
         List<MessageReceiveDto> GetAllMessages();
         List<MessageReceiveDto> GetMessagesByTopic(int topicId);
         MessageReceiveDto GetMessageById(int id);
-        MessageSendDto AddMessage(MessageSendDto message);
+        AddedMessageResponse AddMessage(MessageSendDto message);
     }
 }

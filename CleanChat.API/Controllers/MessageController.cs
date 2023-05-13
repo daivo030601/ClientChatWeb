@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using CleanChat.API.Response;
 using CleanChat.Application.Services.Interface;
 using CleanChat.Domain.DTOs.Requests;
@@ -14,12 +15,10 @@ namespace CleanChat.API.Controllers
     public class MessageController : ControllerBase
     {
         private readonly IMessageService _service;
-        private readonly IMapper _mapper;
 
-        public MessageController(IMessageService service, IMapper mapper)
+        public MessageController(IMessageService service)
         {
             _service = service;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -28,8 +27,11 @@ namespace CleanChat.API.Controllers
             try
             {
                 var messages = _service.GetAllMessages();
-                var response = _mapper.Map<List<MessageReceiveDto>>(messages);
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
+                if (messages == null)
+                {
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "messages not found"));
+                }
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
             }
             catch (Exception e)
             {
@@ -47,8 +49,7 @@ namespace CleanChat.API.Controllers
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Message not found"));
                 }
-                var response = _mapper.Map<MessageReceiveDto>(message);
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, message));
             }
             catch (Exception e)
             {
@@ -62,8 +63,11 @@ namespace CleanChat.API.Controllers
             try
             {
                 var messages = _service.GetMessagesByTopic(topicId);
-                var response = _mapper.Map<List<MessageReceiveDto>>(messages);
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
+                if (messages == null )
+                {
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Message not found"));
+                }
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
             }
             catch (Exception e)
             {
@@ -72,14 +76,17 @@ namespace CleanChat.API.Controllers
         }
 
         [HttpPost("{topicId}")]
-        public ActionResult AddMessage(int topicId, [FromBody] MessageSendDto message)
+        public ActionResult AddMessage(MessageSendDto message)
         {
             try
             {
-                message.TopicId = topicId;
-                var messageEntity = _mapper.Map<MessageSendDto>(message);
-                _service.AddMessage(messageEntity);
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, "Message added successfully"));
+                var response = _service.AddMessage(message);
+                response.MessageResponse = response.MessageId != 0 ? "Message added successfully" : "Unable to add message";
+                if (response == null )
+                {
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, response));
+                }
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
             }
             catch (Exception e)
             {

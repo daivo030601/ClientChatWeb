@@ -18,7 +18,7 @@ namespace CleanChat.Application.Services
 {
     public class MessageService : IMessageService
     {
-        public IMessageRepository _messageRepository { get; set; }
+        private readonly IMessageRepository _messageRepository;
 
         public MessageService(IMessageRepository messageRepository)
         {
@@ -27,26 +27,71 @@ namespace CleanChat.Application.Services
 
         public List<MessageReceiveDto> GetAllMessages()
         {
-            var messages = _messageRepository.GetAllMessages();
-            return messages;
+            List<MessageReceiveDto> response = new List<MessageReceiveDto>();
+            var entities = _messageRepository.GetAllMessages();
+            foreach (var entity in entities)
+            {
+                response.Add(new MessageReceiveDto
+                {
+                    MessageId = entity.MessageId,
+                    SentDate = entity.SentDate,
+                    Content = entity.Content,
+                    ClientName = entity.ClientName,
+                    ClientId = entity.ClientId,
+                    TopicId = entity.TopicId,
+                });
+            }
+            return response;
         }
 
         public List<MessageReceiveDto> GetMessagesByTopic(int topicId)
         {
-            var messages = _messageRepository.GetMessagesByTopic(topicId);
-            return messages;
+            List<MessageReceiveDto> response = new List<MessageReceiveDto>();
+            var entities = _messageRepository.GetMessagesByTopic(topicId);
+            foreach ( var entity in entities )
+            {
+                response.Add(new MessageReceiveDto
+                {
+                    MessageId = entity.MessageId,
+                    SentDate = entity.SentDate,
+                    Content = entity.Content,
+                    ClientName = entity.ClientName,
+                    ClientId = entity.ClientId,
+                    TopicId = entity.TopicId,
+                });
+            }
+            return response;
         }
 
         public MessageReceiveDto GetMessageById(int id)
         {
-            var message = _messageRepository.GetMessageById(id);
-            return message;
+            var entity = _messageRepository.GetMessageById(id);
+            MessageReceiveDto response = new MessageReceiveDto
+            {
+                MessageId = entity.MessageId,
+                SentDate = entity.SentDate,
+                Content = entity.Content,
+                ClientName = entity.ClientName,
+                ClientId = entity.ClientId,
+                TopicId = entity.TopicId,
+            };
+            return response;
         }
 
-        public MessageSendDto AddMessage(MessageSendDto message)
+        public AddedMessageResponse AddMessage(MessageSendDto message)
         {
-            _messageRepository.AddMessage(message);
-            return message;
+            Message mes = new Message
+            {
+                Content = message.Content,
+                ClientId = message.ClientId,
+                TopicId = message.TopicId,
+            };
+            var entity = _messageRepository.AddMessage(mes);
+            AddedMessageResponse response = new AddedMessageResponse
+            {
+                MessageId = entity.MessageId,
+            };
+            return response;
         }
     }
 }

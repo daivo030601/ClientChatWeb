@@ -1,6 +1,7 @@
 ﻿using CleanChat.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace CleanChat.Domain.Entities
         public string Content { get; set; } = string.Empty;
 
         public int ClientId { get; set; }
+        [NotMapped]
         public string ClientName { get; set; } = string.Empty;
         public Client? Client { get; set; }
         public int TopicId { get; set; }

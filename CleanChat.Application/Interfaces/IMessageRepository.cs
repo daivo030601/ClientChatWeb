@@ -7,9 +7,9 @@ namespace CleanChat.Application.Repositories
 {
     public interface IMessageRepository
     {
-        List<MessageReceiveDto> GetAllMessages();
-        List<MessageReceiveDto> GetMessagesByTopic(int topicId);
-        MessageReceiveDto GetMessageById(int id);
-        MessageSendDto AddMessage(MessageSendDto message);
+        List<Message> GetAllMessages();
+        List<Message> GetMessagesByTopic(int topicId);
+        Message GetMessageById(int id);
+        Message AddMessage(Message message);
     }
 }
