@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanChat.Domain.Entities
+namespace CleanChat.Domain.DTOs.Responses
 {
-    public class ClientTopic
+    public class SubscribeTopicResponse
     {
         public int TopicId { get; set; }
-        public Topic? Topic { get; set; }
         public int ClientId { get; set; }
-        public Client? Client { get; set; }
     }
 }

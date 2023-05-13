@@ -31,6 +31,16 @@ namespace CleanChat.Infrastructure.context
             modelBuilder.Entity<ClientTopic>()
                 .HasKey(c => new { c.ClientId, c.TopicId });
 
+            modelBuilder.Entity<ClientTopic>()
+                .HasOne(c => c.Client)
+                .WithMany(m => m.ClientTopics)
+                .HasForeignKey(c => c.ClientId);
+
+            modelBuilder.Entity<ClientTopic>()
+                .HasOne(c => c.Topic)
+                .WithMany(m => m.ClientTopics)
+                .HasForeignKey(c => c.TopicId);
+
             modelBuilder.Entity<Client>().HasData( new List<Client>() 
             {
                 new Client() {ClientId = 1, Name = "chau", Password = "123"},
