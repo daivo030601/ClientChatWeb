@@ -29,17 +29,21 @@ namespace CleanChat.Application.Services
         {
             List<MessageReceiveDto> response = new List<MessageReceiveDto>();
             var entities = _messageRepository.GetAllMessages();
-            foreach (var entity in entities)
+            if (entities != null) 
             {
-                response.Add(new MessageReceiveDto
+
+                foreach ( var entity in entities )
                 {
-                    MessageId = entity.MessageId,
-                    SentDate = entity.SentDate,
-                    Content = entity.Content,
-                    ClientName = entity.ClientName,
-                    ClientId = entity.ClientId,
-                    TopicId = entity.TopicId,
-                });
+                    response.Add(new MessageReceiveDto
+                    {
+                        MessageId = entity.MessageId,
+                        SentDate = entity.SentDate,
+                        Content = entity.Content,
+                        ClientName = entity.ClientName,
+                        ClientId = entity.ClientId,
+                        TopicId = entity.TopicId,
+                    });
+                }
             }
             return response;
         }
@@ -48,17 +52,20 @@ namespace CleanChat.Application.Services
         {
             List<MessageReceiveDto> response = new List<MessageReceiveDto>();
             var entities = _messageRepository.GetMessagesByTopic(topicId);
-            foreach ( var entity in entities )
+            if ( entities != null )
             {
-                response.Add(new MessageReceiveDto
+                foreach ( var entity in entities )
                 {
-                    MessageId = entity.MessageId,
-                    SentDate = entity.SentDate,
-                    Content = entity.Content,
-                    ClientName = entity.ClientName,
-                    ClientId = entity.ClientId,
-                    TopicId = entity.TopicId,
-                });
+                    response.Add(new MessageReceiveDto
+                    {
+                        MessageId = entity.MessageId,
+                        SentDate = entity.SentDate,
+                        Content = entity.Content,
+                        ClientName = entity.ClientName,
+                        ClientId = entity.ClientId,
+                        TopicId = entity.TopicId,
+                    });
+                }
             }
             return response;
         }
@@ -66,16 +73,22 @@ namespace CleanChat.Application.Services
         public MessageReceiveDto GetMessageById(int id)
         {
             var entity = _messageRepository.GetMessageById(id);
-            MessageReceiveDto response = new MessageReceiveDto
+            if ( entity != null )
             {
-                MessageId = entity.MessageId,
-                SentDate = entity.SentDate,
-                Content = entity.Content,
-                ClientName = entity.ClientName,
-                ClientId = entity.ClientId,
-                TopicId = entity.TopicId,
-            };
-            return response;
+                MessageReceiveDto response = new MessageReceiveDto
+                {
+                    MessageId = entity.MessageId,
+                    SentDate = entity.SentDate,
+                    Content = entity.Content,
+                    ClientName = entity.ClientName,
+                    ClientId = entity.ClientId,
+                    TopicId = entity.TopicId,
+                };
+                return response;
+            }
+            return null;
+
+            
         }
 
         public AddedMessageResponse AddMessage(MessageSendDto message)

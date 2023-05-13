@@ -11,7 +11,6 @@ namespace CleanChat.Domain.DTOs.Requests
     {
         public string Content { get; set; } = string.Empty;
         public int ClientId { get; set; }
-        public string ClientName { get; set; } = string.Empty;
         public int TopicId { get; set; }
     }
 }

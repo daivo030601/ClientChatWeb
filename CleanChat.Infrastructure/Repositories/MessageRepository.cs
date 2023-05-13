@@ -15,7 +15,7 @@ namespace CleanChat.Infrastructure.Repositories
         private readonly ChatDbContext _context;
 
 
-        public MessageRepository(ChatDbContext context, )
+        public MessageRepository(ChatDbContext context)
         {
             _context = context;
         }

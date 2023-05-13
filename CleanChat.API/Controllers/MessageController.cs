@@ -75,7 +75,7 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpPost("{topicId}")]
+        [HttpPost]
         public ActionResult AddMessage(MessageSendDto message)
         {
             try
