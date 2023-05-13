@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj": {}
+    "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj": {
+    "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj",
+        "projectUniqueName": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj",
         "projectName": "CleanChat.Application",
-        "projectPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj",
-        "packagesPath": "C:\\Users\\knguyen5_mantu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\obj\\",
+        "projectPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj",
+        "packagesPath": "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\knguyen5_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tnhiep_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj": {
-                "projectPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj"
+              "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj": {
+                "projectPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj"
               }
             }
           }
@@ -77,17 +77,17 @@
         }
       }
     },
-    "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj": {
+    "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
         "projectName": "CleanChat.Domain",
-        "projectPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
-        "packagesPath": "C:\\Users\\knguyen5_mantu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\obj\\",
+        "projectPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
+        "packagesPath": "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\knguyen5_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tnhiep_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -146,17 +146,17 @@
         }
       }
     },
-    "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj": {
+    "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
         "projectName": "CleanChat.Infrastructure",
-        "projectPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\knguyen5_mantu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\knguyen5_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tnhiep_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -170,8 +170,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj": {
-                "projectPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj"
+              "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj": {
+                "projectPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj"
               }
             }
           }
