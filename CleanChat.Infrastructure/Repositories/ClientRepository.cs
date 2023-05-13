@@ -42,5 +42,18 @@ namespace CleanChat.Infrastructure.Repositories
             return null;
 
         }
+
+        public ClientTopic SubscribeTopic(ClientTopic clientTopic)
+        {
+            try
+            {
+                _chatDbContext.ClientTopics.Add(clientTopic);
+                _chatDbContext.SaveChanges();
+                return clientTopic;
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
