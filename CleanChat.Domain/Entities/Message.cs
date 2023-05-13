@@ -11,7 +11,7 @@ namespace CleanChat.Domain.Entities
     {
         public int MessageId { get; set; }
         public DateTime SentDate { get; set; }
-        public string Content { get; set; }
+        public string Content { get; set; } = string.Empty;
 
         public int ClientId { get; set; }
         public Client? Client { get; set; }

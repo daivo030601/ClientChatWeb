@@ -4,15 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanChat.Domain.Entities
+namespace CleanChat.Domain.DTOs.Responses
 {
-    public class Topic
+    public class GetTopicResponse
     {
         public int TopicId { get; set; }
         public string TopicName { get; set; } = string.Empty;
-
-        public ICollection<ClientTopic>? ClientTopics { get; set; }
-        public ICollection<Message>? Messages { get; set; }
-
     }
 }

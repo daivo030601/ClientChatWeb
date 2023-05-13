@@ -1,5 +1,4 @@
-﻿using CleanChat.Domain;
-using CleanChat.Domain.DTOs.Requests;
+﻿using CleanChat.Domain.DTOs.Requests;
 using CleanChat.Domain.DTOs.Responses;
 using CleanChat.Domain.Entities;
 using System;
@@ -10,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace CleanChat.Application.Interfaces
 {
-    public interface ITopicService
+    public interface IClientTopicService
     {
-        List<GetTopicResponse> GetAllTopics();
-        CreateTopicResponse CreateTopic(CreateTopicRequest request);
+        public SubscribeTopicResponse? SubscribeTopic(SubscribeTopicRequest request);
     }
 }
