@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanChat.API.Migrations
 {
     [DbContext(typeof(ChatDbContext))]
-    [Migration("20230511101005_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230512105952_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace CleanChat.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CleanChat.Domain.Client", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Client", b =>
                 {
                     b.Property<int>("ClientId")
                         .ValueGeneratedOnAdd()
@@ -44,9 +44,29 @@ namespace CleanChat.API.Migrations
                     b.HasKey("ClientId");
 
                     b.ToTable("Clients");
+
+                    b.HasData(
+                        new
+                        {
+                            ClientId = 1,
+                            Name = "chau",
+                            Password = "123"
+                        },
+                        new
+                        {
+                            ClientId = 2,
+                            Name = "dai",
+                            Password = "123"
+                        },
+                        new
+                        {
+                            ClientId = 3,
+                            Name = "tuananh",
+                            Password = "123"
+                        });
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.ClientTopic", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.ClientTopic", b =>
                 {
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
@@ -61,7 +81,7 @@ namespace CleanChat.API.Migrations
                     b.ToTable("ClientTopics");
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.Message", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Message", b =>
                 {
                     b.Property<int>("MessageId")
                         .ValueGeneratedOnAdd()
@@ -77,7 +97,9 @@ namespace CleanChat.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SentDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<int>("TopicId")
                         .HasColumnType("int");
@@ -91,7 +113,7 @@ namespace CleanChat.API.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.Topic", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Topic", b =>
                 {
                     b.Property<int>("TopicId")
                         .ValueGeneratedOnAdd()
@@ -106,32 +128,49 @@ namespace CleanChat.API.Migrations
                     b.HasKey("TopicId");
 
                     b.ToTable("Topics");
+
+                    b.HasData(
+                        new
+                        {
+                            TopicId = 1,
+                            TopicName = "A"
+                        },
+                        new
+                        {
+                            TopicId = 2,
+                            TopicName = "B"
+                        },
+                        new
+                        {
+                            TopicId = 3,
+                            TopicName = "C"
+                        });
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.ClientTopic", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.ClientTopic", b =>
                 {
-                    b.HasOne("CleanChat.Domain.Client", null)
+                    b.HasOne("CleanChat.Domain.Entities.Client", null)
                         .WithMany("ClientTopics")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CleanChat.Domain.Topic", null)
+                    b.HasOne("CleanChat.Domain.Entities.Topic", null)
                         .WithMany("ClientTopics")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.Message", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Message", b =>
                 {
-                    b.HasOne("CleanChat.Domain.Client", "Client")
+                    b.HasOne("CleanChat.Domain.Entities.Client", "Client")
                         .WithMany("Messages")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CleanChat.Domain.Topic", "Topic")
+                    b.HasOne("CleanChat.Domain.Entities.Topic", "Topic")
                         .WithMany("Messages")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -142,14 +181,14 @@ namespace CleanChat.API.Migrations
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.Client", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Client", b =>
                 {
                     b.Navigation("ClientTopics");
 
                     b.Navigation("Messages");
                 });
 
-            modelBuilder.Entity("CleanChat.Domain.Topic", b =>
+            modelBuilder.Entity("CleanChat.Domain.Entities.Topic", b =>
                 {
                     b.Navigation("ClientTopics");
 

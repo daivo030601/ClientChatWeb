@@ -9,7 +9,7 @@ namespace CleanChat.Domain.Entities
     public class Topic
     {
         public int TopicId { get; set; }
-        public string TopicName { get; set; }
+        public string TopicName { get; set; } = string.Empty;
 
         public ICollection<ClientTopic>? ClientTopics { get; set; }
         public ICollection<Message>? Messages { get; set; }

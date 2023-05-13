@@ -24,11 +24,11 @@ namespace CleanChat.API.Migrations
 
             modelBuilder.Entity("CleanChat.Domain.Entities.Client", b =>
                 {
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ClientId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -146,17 +146,21 @@ namespace CleanChat.API.Migrations
 
             modelBuilder.Entity("CleanChat.Domain.Entities.ClientTopic", b =>
                 {
-                    b.HasOne("CleanChat.Domain.Entities.Client", null)
+                    b.HasOne("CleanChat.Domain.Entities.Client", "Client")
                         .WithMany("ClientTopics")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CleanChat.Domain.Entities.Topic", null)
+                    b.HasOne("CleanChat.Domain.Entities.Topic", "Topic")
                         .WithMany("ClientTopics")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Topic");
                 });
 
             modelBuilder.Entity("CleanChat.Domain.Entities.Message", b =>

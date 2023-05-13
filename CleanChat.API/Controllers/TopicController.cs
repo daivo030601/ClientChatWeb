@@ -1,6 +1,9 @@
-﻿using CleanChat.API.Response;
+﻿using Azure;
+using CleanChat.API.Response;
 using CleanChat.Application.Interfaces;
 using CleanChat.Domain;
+using CleanChat.Domain.DTOs.Requests;
+using CleanChat.Domain.DTOs.Responses;
 using CleanChat.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +21,7 @@ namespace CleanChat.API.Controllers
             _service = service;
         }
         [HttpGet]
-        public ActionResult<List<Topic>> Get()
+        public ActionResult<List<GetTopicResponse>> Get()
         {
             try
             {
@@ -32,12 +35,16 @@ namespace CleanChat.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Topic> PostTopic (Topic topic)
+        public ActionResult<CreateTopicResponse> CreateTopic (CreateTopicRequest topic)
         {
-            var resulttopic = _service.CreateTopic(topic);
-            return Ok(resulttopic);
+            try
+            {
+                var resulttopic = _service.CreateTopic(topic);
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, resulttopic));
+            } catch (Exception e)
+            {
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
+            }
         }
-
-       
     }
 }
