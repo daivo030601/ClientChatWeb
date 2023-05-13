@@ -1,4 +1,4 @@
-﻿using CleanChat.Application.Repositories;
+﻿
 using CleanChat.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -12,6 +12,7 @@ namespace CleanChat.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
+            
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://localhost:7221/api/Topic"))
@@ -22,6 +23,7 @@ namespace CleanChat.Web.Controllers
                     if (apiResponseObj.Code == "0") // assuming success response has code "200"
                     {
                         var topics = JsonConvert.DeserializeObject<List<Topic>>(apiResponseObj.ResponseData.ToString());
+                       
                         return View(topics);
                     }
                     else

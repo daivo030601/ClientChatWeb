@@ -7,8 +7,8 @@
         <ul class="list-group">
             @foreach (var topic in Model)
             {
-                <li class="list-group-item">
-                    <a href="@Url.Action("Topic", "Home", new { topicId = topic.TopicId })">@topic.TopicName</a>
+                <li class="list-group-item" data-topic-id="@topic.TopicId">
+                    <h3>@topic.TopicName</h3>
                 </li>
             }
         </ul>
@@ -44,3 +44,28 @@
         }
     </div>
 </div>
+
+<script>
+    // Attach click event handler to each topic list item
+    var topicListItems = document.querySelectorAll(".list-group-item");
+    var messages = [
+        { MessageId: 1, SentDate: new Date(), Content: "Hello, world!", ClientName: "Alice", ClientId: 1, TopicId: 1 },
+        { MessageId: 2, SentDate: new Date(), Content: "How are you doing?", ClientName: "Bob", ClientId: 2, TopicId: 1 },
+        { MessageId: 3, SentDate: new Date(), Content: "I'm good, thanks for asking!", ClientName: "Alice", ClientId: 1, TopicId: 1 },
+        { MessageId: 4, SentDate: new Date(), Content: "What have you been up to lately?", ClientName: "Bob", ClientId: 2, TopicId: 1 },
+        { MessageId: 5, SentDate: new Date(), Content: "Not much, just working on some projects.", ClientName: "Alice", ClientId: 1, TopicId: 1 },
+        { MessageId: 6, SentDate: new Date(), Content: "Sounds interesting! Tell me more.", ClientName: "Bob", ClientId: 2, TopicId: 1 },
+        { MessageId: 7, SentDate: new Date(), Content: "Sure, I'd be happy to.", ClientName: "Alice", ClientId: 1, TopicId: 1 }
+    ];
+
+    topicListItems.forEach(function (item) {
+        var topics = @Html.Raw(Json.Serialize(Model));
+        item.addEventListener("click", function () {
+            var topicId = item.getAttribute("data-topic-id");
+            console.log(topics.topicId);
+            topics.topicId.push(...messages);
+            
+        });
+    })
+</script>
+
