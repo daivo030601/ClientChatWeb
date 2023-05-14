@@ -339,19 +339,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\knguyen5_mantu\\.nuget\\packages\\": {}
+    "C:\\Users\\tvo9_mantu\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
+      "projectUniqueName": "C:\\Work\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
       "projectName": "CleanChat.Domain",
-      "projectPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
-      "packagesPath": "C:\\Users\\knguyen5_mantu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\obj\\",
+      "projectPath": "C:\\Work\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
+      "packagesPath": "C:\\Users\\tvo9_mantu\\.nuget\\packages\\",
+      "outputPath": "C:\\Work\\ClientChatWeb\\CleanChat.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\knguyen5_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tvo9_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

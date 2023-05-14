@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace CleanChat.API.Migrations
 {
     /// <inheritdoc />
-    public partial class InititalSetup : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,7 +70,7 @@ namespace CleanChat.API.Migrations
                 {
                     MessageId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SentDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
                     TopicId = table.Column<int>(type: "int", nullable: false)
@@ -88,6 +90,26 @@ namespace CleanChat.API.Migrations
                         principalTable: "Topics",
                         principalColumn: "TopicId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Clients",
+                columns: new[] { "ClientId", "Name", "Password" },
+                values: new object[,]
+                {
+                    { 1, "chau", "123" },
+                    { 2, "dai", "123" },
+                    { 3, "tuananh", "123" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Topics",
+                columns: new[] { "TopicId", "TopicName" },
+                values: new object[,]
+                {
+                    { 1, "A" },
+                    { 2, "B" },
+                    { 3, "C" }
                 });
 
             migrationBuilder.CreateIndex(
