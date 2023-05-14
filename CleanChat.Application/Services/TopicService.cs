@@ -40,5 +40,24 @@ namespace CleanChat.Application.Services
             response.TopicId = result.TopicId;
             return response;
         }
+
+        public List<ClientTopicResponse>? GetClientsFromTopic(ClientsTopicRequest request)
+        {
+
+            var clients = _topicRepository.GetClientsFromTopic(request.TopicId);
+            var result = new List<ClientTopicResponse>();
+            if (clients != null)
+            {
+                foreach (var client in clients)
+                {
+                    var response = new ClientTopicResponse();
+                    response.ClientId = client.ClientId;
+                    response.Name = client.Client?.Name;
+                    result.Add(response);
+                }
+                return result;
+            }
+            return null;
+        }
     }
 }

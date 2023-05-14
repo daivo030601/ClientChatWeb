@@ -43,14 +43,48 @@ namespace CleanChat.Infrastructure.Repositories
 
         }
 
-        public ClientTopic SubscribeTopic(ClientTopic clientTopic)
+        public bool? SubscribeTopic(ClientTopic clientTopic)
         {
             try
             {
-                _chatDbContext.ClientTopics.Add(clientTopic);
-                _chatDbContext.SaveChanges();
-                return clientTopic;
-            } catch (Exception ex)
+                if (_chatDbContext.Clients.Any(c => c.ClientId == clientTopic.ClientId)
+                    && _chatDbContext.Topics.Any(m => m.TopicId == clientTopic.TopicId))
+                {
+                    if (_chatDbContext.ClientTopics.Any(c => c.ClientId == clientTopic.ClientId
+                        && c.TopicId == clientTopic.TopicId))
+                    {
+                        return false;
+                    }
+                    _chatDbContext.ClientTopics.Add(clientTopic);
+                    _chatDbContext.SaveChanges();
+                    return true;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<ClientTopic>? GetTopicsFromClient(int clientId)
+        {
+            try
+            {
+                if (_chatDbContext.Clients.Any(c => c.ClientId == clientId))
+                {
+                    var query = _chatDbContext.ClientTopics.Join(_chatDbContext.Topics,
+                        c => c.TopicId, m => m.TopicId, (c, m) => new ClientTopic()
+                        {
+                            ClientId = c.ClientId,
+                            TopicId = c.TopicId,
+                            Topic = m
+                        });
+                    return query.Where(c => c.ClientId == clientId).ToList();
+                }
+                return null;
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

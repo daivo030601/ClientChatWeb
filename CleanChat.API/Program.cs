@@ -41,9 +41,6 @@ builder.Services.AddScoped<IClientServices, ClientServices>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 
-builder.Services.AddScoped<IClientTopicRepository, ClientTopicRepository>();
-builder.Services.AddScoped<IClientTopicService, ClientTopicService>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

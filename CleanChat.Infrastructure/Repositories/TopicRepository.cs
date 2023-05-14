@@ -41,5 +41,28 @@ namespace CleanChat.Infrastructure.Repositories
                 throw new Exception(ex.Message);
             }
         }
+
+        public List<ClientTopic>? GetClientsFromTopic(int topic)
+        {
+            try
+            {
+                if (_chatDbContext.Topics.Any(c => c.TopicId == topic))
+                {
+                    var query = _chatDbContext.ClientTopics.Join(_chatDbContext.Clients,
+                        c => c.ClientId, m => m.ClientId, (c, m) => new ClientTopic()
+                        {
+                            ClientId = c.ClientId,
+                            TopicId = c.TopicId,
+                            Client = m
+                        });
+                    return query.Where(c => c.TopicId == topic).ToList();
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
