@@ -86,9 +86,7 @@ namespace CleanChat.Application.Services
                 };
                 return response;
             }
-            return null;
-
-            
+            return null;            
         }
 
         public AddedMessageResponse AddMessage(MessageSendDto message)
