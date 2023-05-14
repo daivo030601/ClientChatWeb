@@ -25,7 +25,7 @@ namespace CleanChat.Web.Controllers
             else
             {
                 ModelState.AddModelError("", "Wrong username or password.");
-                return View(user);
+                return View();
             }
         }
 
