@@ -14,5 +14,6 @@ namespace CleanChat.Application.Interfaces
     {
         List<GetTopicResponse> GetAllTopics();
         CreateTopicResponse CreateTopic(CreateTopicRequest request);
+        List<ClientTopicResponse>? GetClientsFromTopic(ClientsTopicRequest request);
     }
 }

@@ -46,5 +46,24 @@ namespace CleanChat.API.Controllers
                 return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
             }
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<List<ClientTopicResponse>> Get(int id)
+        {
+            try
+            {
+                var request = new ClientsTopicRequest() { TopicId = id };
+                var result = _service.GetClientsFromTopic(request);
+                if (result == null)
+                {
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, request));
+                }
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
+            }
+        }
     }
 }

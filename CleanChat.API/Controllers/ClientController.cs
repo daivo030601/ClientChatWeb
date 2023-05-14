@@ -40,6 +40,25 @@ namespace CleanChat.API.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<List<TopicClientResponse>> Get(int id)
+        {
+            try
+            {
+                var request = new TopicsClientRequest() { ClientId = id };
+                var result = _services.GetTopicsFromClient(request);
+                if (result == null)
+                {
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, id));
+                }
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
+            }
+        }
+
         // POST api/<ClientController>
         [HttpPost]
         public ActionResult<CreateClientResponse> CreateClient(CreateClientRequest request )
@@ -53,5 +72,25 @@ namespace CleanChat.API.Controllers
             return Ok(ResponseHandler.GetApiResponse(ResponseType.Success,response));
         }
 
+        [HttpPost("topic")]
+        public ActionResult<SubscribeTopicResponse> SubscribeTopic(SubscribeTopicRequest request)
+        {
+            try
+            {
+                var result = _services.SubscribeTopic(request);
+                if (result.Status == null)
+                {
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, request));
+                } else if (result.Status == false)
+                {
+                    return Ok(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, request));
+                }
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
+            }
+        }
     }
 }
