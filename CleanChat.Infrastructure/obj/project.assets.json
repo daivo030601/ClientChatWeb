@@ -3602,19 +3602,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\": {}
+    "C:\\Users\\tvo9_mantu\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Work\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
       "projectName": "CleanChat.Infrastructure",
-      "projectPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\obj\\",
+      "projectPath": "C:\\Work\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\tvo9_mantu\\.nuget\\packages\\",
+      "outputPath": "C:\\Work\\ClientChatWeb\\CleanChat.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\tnhiep_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tvo9_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3628,8 +3628,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj": {
-              "projectPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj"
+            "C:\\Work\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj": {
+              "projectPath": "C:\\Work\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj"
             }
           }
         }

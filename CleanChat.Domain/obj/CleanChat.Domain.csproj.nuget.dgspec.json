@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj": {}
+    "C:\\Work\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj": {
+    "C:\\Work\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
+        "projectUniqueName": "C:\\Work\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
         "projectName": "CleanChat.Domain",
-        "projectPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
-        "packagesPath": "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Domain\\obj\\",
+        "projectPath": "C:\\Work\\ClientChatWeb\\CleanChat.Domain\\CleanChat.Domain.csproj",
+        "packagesPath": "C:\\Users\\tvo9_mantu\\.nuget\\packages\\",
+        "outputPath": "C:\\Work\\ClientChatWeb\\CleanChat.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\tnhiep_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tvo9_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
