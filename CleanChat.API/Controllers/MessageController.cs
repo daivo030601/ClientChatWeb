@@ -57,7 +57,7 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("topic/{topicId}")]
+        [HttpGet("topicId")]
         public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int topicId)
         {
             try
