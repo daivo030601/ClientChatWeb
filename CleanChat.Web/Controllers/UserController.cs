@@ -25,7 +25,7 @@ namespace CleanChat.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login( User user )
         {
             try
             {
@@ -45,7 +45,7 @@ namespace CleanChat.Web.Controllers
 
                 var loginResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
 
-                if ( loginResponse.Code == "0" )
+                if ( loginResponse != null && loginResponse.Code == "0" )
                 {
                     // TODO: Implement user authentication and redirect to main page if successful
                     return RedirectToAction("Index", "Home");
@@ -69,30 +69,30 @@ namespace CleanChat.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(User user)
+        public async Task<IActionResult> Register( User user )
         {
             // TODO: Validate user input, create user account, and redirect to main page if successful
             try
             {
-                if (user.Password != user.ConfirmPassword)
+                if ( user.Password != user.ConfirmPassword )
                 {
                     ModelState.AddModelError(string.Empty, "Your Password is not match, please try again");
                     return View(user);
                 }
-                var createClientObj = new CreateClientRequest 
-                { 
-                    ClientName = user.Username, 
-                    Password = user.Password 
+                var createClientObj = new CreateClientRequest
+                {
+                    ClientName = user.Username,
+                    Password = user.Password
                 };
                 var request = new StringContent(JsonConvert.SerializeObject(createClientObj), Encoding.UTF8, "application/json");
-                
+
                 var response = await _httpClient.PostAsync("https://localhost:7221/api/Client/Create", request);
                 response.EnsureSuccessStatusCode();
 
                 var responseContent = await response.Content.ReadAsStringAsync();
 
                 var createClientResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
-                if (createClientResponse != null && createClientResponse.Code == "0") 
+                if ( createClientResponse != null && createClientResponse.Code == "0" )
                 {
                     return RedirectToAction("Index", "Home");
                 }

@@ -29,7 +29,7 @@ namespace CleanChat.Application.Services
         {
             List<MessageReceiveDto> response = new List<MessageReceiveDto>();
             var entities = _messageRepository.GetAllMessages();
-            if (entities != null) 
+            if (entities.Count != 0) 
             {
 
                 foreach ( var entity in entities )

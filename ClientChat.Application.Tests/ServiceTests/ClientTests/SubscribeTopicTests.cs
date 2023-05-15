@@ -1,0 +1,83 @@
+﻿using CleanChat.Application.Interfaces;
+using CleanChat.Application.Services;
+using CleanChat.Domain.DTOs.Requests;
+using CleanChat.Domain.DTOs.Responses;
+using CleanChat.Domain.Entities;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClientChat.Application.Tests.ServiceTests.ClientTests
+{
+    public class SubscribeTopicTests
+    {
+        [Fact]
+        public void Subscribe_Topic_Return_True()
+        {
+            var mockClientRepo = new Mock<IClientRepository>();
+            var subscribeToppicRequest = new SubscribeTopicRequest()
+            {
+                TopicId = 1,
+                ClientId = 1,
+            };
+            mockClientRepo.Setup(c => c.SubscribeTopic(It.IsAny<ClientTopic>())).Returns(true);
+
+            var clientService = new ClientServices(mockClientRepo.Object);
+
+            // Act
+            var result = clientService.SubscribeTopic(subscribeToppicRequest);
+
+            // Assert
+            Assert.True(result.Status);
+            Assert.IsType<SubscribeTopicResponse>(result);
+        }
+
+        [Fact]
+        public void Subscribe_Topic_Return_False()
+        {
+            // Arrange
+            var mockClientRepo = new Mock<IClientRepository>();
+            var subscribeToppicRequest = new SubscribeTopicRequest()
+            {
+                TopicId = 1,
+                ClientId = 1,
+            };
+            mockClientRepo.Setup(c => c.SubscribeTopic(It.IsAny<ClientTopic>())).Returns(false);
+
+            var clientService = new ClientServices(mockClientRepo.Object);
+
+            // Act
+            var result = clientService.SubscribeTopic(subscribeToppicRequest);
+
+            // Assert
+            Assert.False(result.Status);
+            Assert.IsType<SubscribeTopicResponse>(result);
+        }
+
+        [Fact]
+        public void Subscribe_Topic_Return_Null()
+        {
+            // Arrange
+            var mockClientRepo = new Mock<IClientRepository>();
+            var subscribeToppicRequest = new SubscribeTopicRequest()
+            {
+                TopicId = 1,
+                ClientId = 1,
+            };
+            bool? response = null;
+            mockClientRepo.Setup(c => c.SubscribeTopic(It.IsAny<ClientTopic>())).Returns(response);
+
+            var clientService = new ClientServices(mockClientRepo.Object);
+
+            // Act
+            var result = clientService.SubscribeTopic(subscribeToppicRequest);
+
+            // Assert
+            Assert.Null(result.Status);
+            Assert.IsType<SubscribeTopicResponse>(result);
+        }
+    }
+}
