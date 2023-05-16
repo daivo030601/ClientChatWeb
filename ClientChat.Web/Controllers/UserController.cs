@@ -41,7 +41,7 @@ namespace CleanChat.Web.Controllers
 
 
 
-                var response = await _httpClient.PostAsync("https://localhost:7221/api/Client/Login", content);
+                var response = await _httpClient.PostAsync("https://localhost:7221/api/Login", content);
 
 
 
@@ -100,7 +100,7 @@ namespace CleanChat.Web.Controllers
 
 
 
-                var response = await _httpClient.PostAsync("https://localhost:7221/api/Client/Create", request);
+                var response = await _httpClient.PostAsync("https://localhost:7221/api/Create", request);
                 
 
 
