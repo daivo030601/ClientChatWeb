@@ -1,4 +1,5 @@
 ﻿using System.Net.WebSockets;
+using System.Reflection;
 using System.Text;
 
 namespace Socketchat.SocketManager
@@ -46,11 +47,5 @@ namespace Socketchat.SocketManager
         public abstract Task Receive(WebSocket webSocket, WebSocketReceiveResult result, byte[] buffer);
     }
 
-    public static class SocketExtension
-    {
-        //public static IServiceCollection AddWebSocketManager(this IServiceCollection services)
-        //{
-        //    services
-        //}
-    }
+    
 }
