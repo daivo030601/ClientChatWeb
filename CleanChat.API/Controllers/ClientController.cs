@@ -20,8 +20,8 @@ namespace CleanChat.API.Controllers
         }
 
         // GET api/<ClientController>/
-        [HttpPost]
-        public ActionResult<LoginReponse> Login( LoginRequest request )
+        [HttpGet]
+        public ActionResult<LoginReponse> Login( [FromQuery]LoginRequest request )
         {
             try
                 {
@@ -60,7 +60,7 @@ namespace CleanChat.API.Controllers
         }
 
         // POST api/<ClientController>
-        [HttpPost("Create")]
+        [HttpPost]
         public ActionResult<CreateClientResponse> CreateClient(CreateClientRequest request )
         {
             if ( request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string) ) 

@@ -3,17 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-##CleanChat./.
-Cleanchat.API/bin/
-Cleanchat.API/obj/
-Cleanchat.Application/bin/
-Cleanchat.Application/obj/
-CleanChat.Application/CleanChat.Application.csproj
-Cleanchat.Domain/bin/
-CleanChat.Domain/obj/
-CleanChat.Infrastructure/bin/
-Cleanchat.Infrastructure/obj/
-CleanChat.Web/Cleanchat.Web.csproj
 
 # User-specific files
 *.rsuser
