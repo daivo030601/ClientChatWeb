@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "CleanChat.Domain": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:53878;http://localhost:53882"
+    }
+  }
+}

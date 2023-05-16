@@ -1,46 +1,51 @@
-﻿@model IEnumerable<Topic>
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
 
-<div class="row">
-    <div class="col-md-3">
-        <h2>Topics</h2>
-        <hr />
-        <ul class="list-group">
-            @foreach (var topic in Model)
+@using CleanChat.Web.Models
+
+@model Message
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <table class="table mt-5">
+        <thread>
+            <tr>
+                <th scope="col">TopicId</th>
+                <th scope="col">ClientId</th>
+                <th scope="col">Message</th>
+            </tr>
+        </thread>
+        
+        <tr>
+            @if (Model != null)
             {
-                <li class="list-group-item">
-                    <a href="@Url.Action("Topic", "Home", new { topicId = topic.TopicId })">@topic.TopicName</a>
-                </li>
+                <td>@Model.TopicId</td>
+                <td>@Model.ClientId</td>
+                <td>@Model.Content</td>
             }
-        </ul>
-    </div>
-    <div class="col-md-9">
-        @if (ViewBag.Topic != null)
-        {
-            <h2>@ViewBag.Topic.Name</h2>
-            <hr />
-            <div class="card">
-                <div class="card-body">
-                    <div id="messages">
-                        @foreach (var message in ViewBag.Topic.Messages)
-                        {
-                            <div class="message">
-                                <div class="message-username">@message.Username</div>
-                                <div class="message-text">@message.Text</div>
-                                <div class="message-time">@message.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</div>
-                            </div>
-                        }
-                    </div>
-                    <form id="new-message-form" method="post">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="Username" />
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" name="text" placeholder="Message"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
-                    </form>
-                </div>
-            </div>
-        }
-    </div>
+        </tr>
+    </table>
+
+    <form asp-action="index" method="post" class="card p-3">
+        <div asp-validation-summary="All"></div>
+        <div class="form-group mb-0 align-middle">
+            <label asp-for="TopicId">Topic</label>
+            <input asp-for="TopicId" class="mr-10" type="text" />
+
+            <label asp-for="ClientId">Client</label>
+            <input asp-for="ClientId" class="mr-10" type="text" />
+
+            <label asp-for="Content">Message</label>
+            <input asp-for="Content" class="mr-10" type="text" />
+
+            <button type="submit" class="btn-primary btn m-3">Submit</button>
+        </div>
+    </form>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

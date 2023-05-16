@@ -2,8 +2,7 @@
 {
     public class Topic
     {
-        public int TopicId { get; set; }
-        public string TopicName { get; set; }
-        public List<Message> Messages { get; set; } = new List<Message>();
+        public int topicId { get; set; }
+        public string topicName { get; set; } = string.Empty;
     }
 }

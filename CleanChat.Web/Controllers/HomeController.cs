@@ -1,72 +1,83 @@
-﻿using CleanChat.Application.Repositories;
-using CleanChat.Web.Models;
+﻿using CleanChat.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace CleanChat.Web.Controllers
 {
     public class HomeController : Controller
     {
-        
-
-        public async Task<IActionResult> Index()
+        private readonly ILogger<HomeController> _logger;
+        private readonly HttpClient client;
+        public HomeController(ILogger<HomeController> logger)
         {
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync("https://localhost:7221/api/Topic"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    var apiResponseObj = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
-
-                    if (apiResponseObj.Code == "0") // assuming success response has code "200"
-                    {
-                        var topics = JsonConvert.DeserializeObject<List<Topic>>(apiResponseObj.ResponseData.ToString());
-                        return View(topics);
-                    }
-                    else
-                    {
-                        // handle error response
-                        return View("Error");
-                    }
-                }
-            }
+            _logger = logger;
+            this.client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:7221/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public IActionResult CreateTopic()
+        [HttpGet]
+        public IActionResult Index()
+        {
+            //try
+            //{
+            //    HttpResponseMessage response = await client.GetAsync("api/Topic");
+            //    var temp = await response.Content.ReadFromJsonAsync<ApiResponse>();
+            //    var data = (temp?.ResponseData)?.ToString();
+            //    var topics = JsonSerializer.Deserialize<List<Topic>>(data!) ?? new List<Topic>();
+            //    foreach (var topic in topics)
+            //    {
+            //        Console.WriteLine($"{topic.topicId} : {topic.topicName}");
+            //    }
+            //    return View("Index", topics);
+
+            //} catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Exception: {ex.Message}");
+            //}
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(Message message)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.PostAsJsonAsync("api/Message", message);
+                    response.EnsureSuccessStatusCode();
+                    return View("Index", message);
+
+                    //var temp = await response.Content.ReadFromJsonAsync<ApiResponse>();
+                    //var data = (temp?.ResponseData)?.ToString();
+                    //var topics = JsonSerializer.Deserialize<List<Topic>>(data!) ?? new List<Topic>();
+                    //foreach (var topic in topics)
+                    //{
+                    //    Console.WriteLine($"{topic.topicId} : {topic.topicName}");
+                    //}
+                    //return View("Index", topics);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Exception: {ex.Message}");
+                }
+            }
+            return View();
+        }
+
+        public IActionResult Privacy()
         {
             return View();
         }
 
-        //[HttpPost]
-        //public IActionResult CreateTopic(Topic topic)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _topicRepository.AddTopic(topic);
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(topic);
-        //}
-
-        public IActionResult Subscribe(int topicId)
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
         {
-            // TODO: implement subscription logic
-            return RedirectToAction("Index");
-        }
-
-        //public IActionResult Topic(int topicId)
-        //{
-        //    var topic = _topicRepository.GetTopic(topicId);
-        //    return View(topic);
-        //}
-
-        [HttpPost]
-        public IActionResult PostMessage(int topicId, string messageText)
-        {
-            // TODO: implement message posting logic
-            return RedirectToAction("Topic", new { topicId });
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
