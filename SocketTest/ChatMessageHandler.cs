@@ -14,7 +14,7 @@ namespace SocketTest
             await base.OnConnected(socket);
 
             var socketId = WebSocketConnectionManager.GetId(socket);
-            await SendMessageToAllAsync($"{socketId} is now connected");
+            //await SendMessageToAllAsync($"{socketId}, is now connected");
         }
 
         public override async Task ReceiveAsync(WebSocket socket, WebSocketReceiveResult result, byte[] buffer)
@@ -22,7 +22,14 @@ namespace SocketTest
             var socketId = WebSocketConnectionManager.GetId(socket);
             var message = $"{Encoding.UTF8.GetString(buffer, 0, result.Count)}";
 
-            await SendMessageToAllAsync(message);
+            string[] msgParts = message.Split("-");
+            if (msgParts[0] == "SUBCRIBE")
+            {
+                await SubcribeSocket(msgParts[1]);
+            } else if (msgParts[0] == "MESSAGE")
+            {
+                await SendMessageToAllAsync(msgParts[1]);
+            }
         }
     }
 }

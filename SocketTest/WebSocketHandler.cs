@@ -19,7 +19,7 @@ namespace SocketTest
 
         public virtual async Task OnDisconnected(WebSocket socket)
         {
-            await WebSocketConnectionManager.RemoveSocket(WebSocketConnectionManager.GetId(socket));
+            await WebSocketConnectionManager.RemoveSocket(socket);
         }
 
         public async Task SendMessageAsync(WebSocket socket, string message)
@@ -35,17 +35,27 @@ namespace SocketTest
                                     cancellationToken: CancellationToken.None);
         }
 
+
         public async Task SendMessageAsync(string socketId, string message)
         {
             await SendMessageAsync(WebSocketConnectionManager.GetSocketById(socketId), message);
         }
-
-        public async Task SendMessageToAllAsync(string message)
+        public async Task SubcribeSocket(string topic)
         {
             foreach (var pair in WebSocketConnectionManager.GetAll())
             {
                 if (pair.Value.State == WebSocketState.Open)
-                    await SendMessageAsync(pair.Value, message);
+                    WebSocketConnectionManager.SubcribeSocket(pair.Value, topic);
+            }
+        }
+
+        public async Task SendMessageToAllAsync(string message)
+        {
+            string[] msgParts = message.Split(",");
+            foreach (var socket in WebSocketConnectionManager.GetListSocketById(msgParts[0]))
+            {
+                if (socket.State == WebSocketState.Open)
+                    await SendMessageAsync(socket, msgParts[1]);
             }
         }
 
