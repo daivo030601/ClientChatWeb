@@ -71,8 +71,16 @@ namespace CleanChat.Infrastructure.Repositories
 
         public Message AddMessage(Message entity)
         {
-            _context.Messages.Add(entity);
-            _context.SaveChanges();
+            try
+            {
+                _context.Messages.Add(entity);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        
 
             return entity;
         }

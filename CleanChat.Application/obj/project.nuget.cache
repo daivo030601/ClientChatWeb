@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "evb6NfJpwSA0BsZl/IDW2gNVaaSozwppmnbjomu8ySpttbwr7JVaIgngxPI/whGmpTfywv3+oaupddknhWtJ0A==",
+  "dgSpecHash": "uBqO9DeonejeQrNr/rEbAB2+a6nUrYBUBUPfxhbChaV13m8aI6EN0C1Vk5hxaqWTM4TXlkMMdKX7qRTQKjKePQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tnhiep_mantu\\Source\\Repos\\CleanChatApp\\CleanChat.Application\\CleanChat.Application.csproj",
+  "projectFilePath": "C:\\Users\\tnhiep_mantu\\source\\repos\\CleanChatApp\\CleanChat.Application\\CleanChat.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\automapper.collection\\9.0.0\\automapper.collection.9.0.0.nupkg.sha512",
@@ -13,5 +13,12 @@
     "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\tnhiep_mantu\\source\\repos\\CleanChatApp\\CleanChat.Application\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
