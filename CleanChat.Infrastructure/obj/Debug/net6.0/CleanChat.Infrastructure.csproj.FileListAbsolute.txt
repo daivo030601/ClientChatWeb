@@ -93,3 +93,22 @@ C:\Users\tnhiep_mantu\Source\Repos\CleanChatApp\CleanChat.Infrastructure\obj\Deb
 C:\Users\tnhiep_mantu\Source\Repos\CleanChatApp\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.pdb
 C:\Users\tnhiep_mantu\Source\Repos\CleanChatApp\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.genruntimeconfig.cache
 C:\Users\tnhiep_mantu\Source\Repos\CleanChatApp\CleanChat.Infrastructure\obj\Debug\net6.0\ref\CleanChat.Infrastructure.dll
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\bin\Debug\net6.0\CleanChat.Infrastructure.deps.json
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\bin\Debug\net6.0\CleanChat.Infrastructure.runtimeconfig.json
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\bin\Debug\net6.0\CleanChat.Infrastructure.dll
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\bin\Debug\net6.0\CleanChat.Infrastructure.pdb
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\bin\Debug\net6.0\CleanChat.Application.dll
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\bin\Debug\net6.0\CleanChat.Domain.dll
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\bin\Debug\net6.0\CleanChat.Application.pdb
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\bin\Debug\net6.0\CleanChat.Domain.pdb
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.csproj.AssemblyReference.cache
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.AssemblyInfoInputs.cache
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.AssemblyInfo.cs
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.csproj.CopyComplete
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.dll
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\refint\CleanChat.Infrastructure.dll
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.pdb
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\CleanChat.Infrastructure.genruntimeconfig.cache
+C:\Work\sample clean\ClientChatWeb\CleanChat.Infrastructure\obj\Debug\net6.0\ref\CleanChat.Infrastructure.dll

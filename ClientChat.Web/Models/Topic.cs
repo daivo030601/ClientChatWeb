@@ -4,6 +4,6 @@
     {
         public int TopicId { get; set; }
         public string TopicName { get; set; }
-        public List<Message> Messages { get; set; } = new List<Message>();
+        public bool Subscribed { get; set; } = false; 
     }
 }

@@ -1,46 +1,124 @@
 ﻿@model IEnumerable<Topic>
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6">
         <h2>Topics</h2>
         <hr />
-        <ul class="list-group">
+        <div class="list-group">
             @foreach (var topic in Model)
             {
-                <li class="list-group-item">
-                    <a href="@Url.Action("Topic", "Home", new { topicId = topic.TopicId })">@topic.TopicName</a>
-                </li>
-            }
-        </ul>
-    </div>
-    <div class="col-md-9">
-        @if (ViewBag.Topic != null)
-        {
-            <h2>@ViewBag.Topic.Name</h2>
-            <hr />
-            <div class="card">
-                <div class="card-body">
-                    <div id="messages">
-                        @foreach (var message in ViewBag.Topic.Messages)
-                        {
-                            <div class="message">
-                                <div class="message-username">@message.Username</div>
-                                <div class="message-text">@message.Text</div>
-                                <div class="message-time">@message.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</div>
-                            </div>
-                        }
-                    </div>
-                    <form id="new-message-form" method="post">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="Username" />
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" name="text" placeholder="Message"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
-                    </form>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="@Url.Action("Topic", "Home", new { topicId = topic.TopicId })" class="topic-link">@topic.TopicName</a>
+                    @{
+                        var subscribed = CheckSubscriptionStatus(topic); // Function to check the subscription status
+                        var buttonText = subscribed ? "Unsubscribe" : "Subscribe";
+                    }
+                    <button class="btn btn-sm btn-primary subscribe-btn" data-topic-id="@topic.TopicId" data-subscribed="@subscribed">@buttonText</button>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            // Subscribe button click handler
+            $(".subscribe-btn").click(function () {
+                var topicId = $(this).data("topic-id");
+                var clientId = @ViewBag.ClientId;
+                var subscribed = $(this).data("subscribed");
+
+                if ($(this).data("subscribed") == "True")
+                    subscribed = true;
+
+                if ($(this).data("subscribed") == "False")
+                    subscribed = false;
+
+                
+                if (subscribed) {
+                    // Perform the unsubscribe logic here
+                    // You can use the topicId to identify the topic being unsubscribed from
+                    $.ajax({
+                        url: "https://localhost:7221/api/Client/Topic",
+                        type: "DELETE",
+                        data: JSON.stringify({ clientId: clientId, topicId: topicId }),
+                        contentType: "application/json",
+                        success: function () {
+                            // Update the button state
+                            
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("Error unsubscribing from topic:", error);
+                        }
+                    });
+                    $(this).text("Subscribe");
+                    $(this).data("subscribed", false);
+                } else {
+                    // Perform the subscribe logic here
+                    // You can use the topicId to identify the topic being subscribed to
+                    $.ajax({
+                        url: "https://localhost:7221/api/Client/Topic",
+                        type: "POST",
+                        data: JSON.stringify({ clientId: clientId, topicId: topicId }),
+                        contentType: "application/json",
+                        success: function () {
+                            
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("Error subscribing to topic:", error);
+                        }
+                    });
+
+                    $(this).text("Unsubscribe");
+                    $(this).data("subscribed", true);
+                }
+            });
+        });
+
+        $(function () {
+            $(".topic-link").click(function (e) {
+                var subscribed = $(this).siblings(".subscribe-btn").data("subscribed"); // Get the subscribed status from the sibling button
+                
+                if (subscribed == "True")
+                    subscribed = true;
+
+                if (subscribed == "False")
+                    subscribed = false;
+                console.log(subscribed);
+                if (!subscribed) {
+                    e.preventDefault(); // Prevent the default link behavior if not subscribed
+                    alert("Please subscribe to the topic before accessing it.");
+                }
+            });
+        });
+    </script>
+    <style>
+        .list-group-item {
+            padding: 12px 20px;
+            border: none;
+        }
+
+        .topic-link {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .subscribe-btn {
+            font-size: 14px;
+        }
+    </style>
+}
+
+@functions {
+    private bool CheckSubscriptionStatus(Topic topic)
+    {
+        // Implement your logic here to check the subscription status for the given topic
+        // Return true if the user is subscribed, false otherwise
+        // You can use any criteria or data source to determine the subscription status
+        // For example, you could check if the user's ID is present in the topic's list of subscribed user IDs
+
+        // Replace the following line with your actual logic
+        return topic.Subscribed;
+    }
+}

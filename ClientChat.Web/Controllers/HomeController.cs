@@ -11,16 +11,33 @@ namespace CleanChat.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var clientId = HttpContext.Session.GetString("ClientId");
+            var clientName = HttpContext.Session.GetString("ClientName");
+
+            // Pass userId to the Home view
+            ViewBag.clientId = clientId;
+            ViewBag.clientName = clientName;
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://localhost:7221/api/Topics"))
                 {
+                    var SubedResponse = await httpClient.GetAsync($"https://localhost:7221/api/Topics/{clientId}");
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    var apiResponseObj = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
+                    string apiSubedResponse = await SubedResponse.Content.ReadAsStringAsync();
 
-                    if (apiResponseObj.Code == "0") // assuming success response has code "200"
+
+                    var apiResponseObj = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
+                    var apiSubedResponseObj = JsonConvert.DeserializeObject<ApiResponse>(apiSubedResponse);
+                    if (apiResponseObj.Code == "0" && apiSubedResponseObj.Code == "0") // assuming success response has code "200"
                     {
                         var topics = JsonConvert.DeserializeObject<List<Topic>>(apiResponseObj.ResponseData.ToString());
+                        var subedTopics = JsonConvert.DeserializeObject<List<Topic>>(apiSubedResponseObj.ResponseData.ToString());
+                        foreach (var item in subedTopics)
+                        {
+                            var topic = topics.FirstOrDefault(t => t.TopicId == item.TopicId);
+                            topic.Subscribed = true;
+                        }
+
                         return View(topics);
                     }
                     else
@@ -60,6 +77,20 @@ namespace CleanChat.Web.Controllers
         //    var topic = _topicRepository.GetTopic(topicId);
         //    return View(topic);
         //}
+
+        public IActionResult Topic(int topicId)
+        {
+            // Use the 'topicId' parameter as needed, e.g., retrieve data from a database
+            // Pass any necessary data to the view if required
+            var clientId = HttpContext.Session.GetString("ClientId");
+            var clientName = HttpContext.Session.GetString("ClientName");
+
+            // Pass userId to the Home view
+            ViewBag.clientId = clientId;
+            ViewBag.clientName = clientName;
+            ViewData["topicId"] = topicId;
+            return View();
+        }
 
         [HttpPost]
         public IActionResult PostMessage(int topicId, string messageText)

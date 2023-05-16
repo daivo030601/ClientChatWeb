@@ -1,4 +1,6 @@
 ﻿using CleanChat.Domain.DTOs.Requests;
+using CleanChat.Domain.DTOs.Responses;
+using CleanChat.Domain.Entities;
 using CleanChat.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -34,31 +36,16 @@ namespace CleanChat.Web.Controllers
                     ClientName = user.Username,
                     Password = user.Password
                 };
-
-
-
                 var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
-
-
-
                 var response = await _httpClient.PostAsync("https://localhost:7221/api/Login", content);
-
-
-
                 response.EnsureSuccessStatusCode();
-
-
-
                 var responseContent = await response.Content.ReadAsStringAsync();
-
-
-
                 var loginResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
-
-
-
                 if ( loginResponse != null && loginResponse.Code == "0" )
                 {
+                    var clientId = JsonConvert.DeserializeObject<Id>(loginResponse.ResponseData.ToString());
+                    HttpContext.Session.SetString("ClientId", clientId.ClientId);
+                    HttpContext.Session.SetString("ClientName", clientId.ClientName);
                     // TODO: Implement user authentication and redirect to main page if successful
                     return RedirectToAction("Index", "Home");
                 }
@@ -97,21 +84,13 @@ namespace CleanChat.Web.Controllers
                     Password = user.Password
                 };
                 var request = new StringContent(JsonConvert.SerializeObject(createClientObj), Encoding.UTF8, "application/json");
-
-
-
                 var response = await _httpClient.PostAsync("https://localhost:7221/api/Create", request);
-                
-
-
-
                 var responseContent = await response.Content.ReadAsStringAsync();
-
-
-
                 var createClientResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
                 if ( createClientResponse != null && createClientResponse.Code == "0" )
                 {
+                    var clientId = JsonConvert.DeserializeObject<Id>(createClientResponse.ResponseData.ToString());
+                    HttpContext.Session.SetString("ClientId", clientId.ClientId);
                     return RedirectToAction("Index", "Home");
                 } else if ( createClientResponse != null && createClientResponse.Code == "3" )
                 {
