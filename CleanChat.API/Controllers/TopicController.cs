@@ -48,7 +48,7 @@ namespace CleanChat.API.Controllers
         }
 
         [HttpGet("Clients/{TopicId}")]
-        public ActionResult<List<ClientTopicResponse>> Get(int TopicId)
+        public ActionResult<List<ClientTopicResponse>> GetClientsFromTopic(int TopicId)
         {
             try
             {

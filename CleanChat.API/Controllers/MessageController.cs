@@ -67,7 +67,7 @@ namespace CleanChat.API.Controllers
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Success, "Unable to get messages by Topic"));
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
             }
             catch (Exception e)
             {

@@ -35,27 +35,15 @@ namespace CleanChat.Web.Controllers
                     Password = user.Password
                 };
 
-
-
                 var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
-
-
 
                 var response = await _httpClient.PostAsync("https://localhost:7221/api/Login", content);
 
-
-
                 response.EnsureSuccessStatusCode();
-
-
 
                 var responseContent = await response.Content.ReadAsStringAsync();
 
-
-
                 var loginResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
-
-
 
                 if ( loginResponse != null && loginResponse.Code == "0" )
                 {

@@ -1,35 +1,58 @@
 ﻿using CleanChat.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace CleanChat.Web.Controllers
 {
     public class HomeController : Controller
     {
-        
+        private readonly ILogger<HomeController> _logger;
+        private readonly HttpClient client;
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+            this.client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:7221/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
 
         public async Task<IActionResult> Index()
         {
-            using (var httpClient = new HttpClient())
+            try
             {
-                using (var response = await httpClient.GetAsync("https://localhost:7221/api/Topics"))
+                HttpResponseMessage response = await client.GetAsync("api/Topics");
+                var api = await response.Content.ReadFromJsonAsync<ApiResponse>();
+                if (api?.Code != "0")
                 {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    var apiResponseObj = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
-
-                    if (apiResponseObj.Code == "0") // assuming success response has code "200"
-                    {
-                        var topics = JsonConvert.DeserializeObject<List<Topic>>(apiResponseObj.ResponseData.ToString());
-                        return View(topics);
-                    }
-                    else
-                    {
-                        // handle error response
-                        return View("Error");
-                    }
+                    return View("Error");
+                } 
+                var data = (api?.ResponseData)?.ToString();
+                var topicRevs = JsonSerializer.Deserialize<List<TopicRev>>(data!) ?? new List<TopicRev>();
+                foreach (var topicRev in topicRevs)
+                {
+                    Console.WriteLine($"{topicRev.topicId} : {topicRev.topicName}");
                 }
+                List<Topic> topics = topicRevs.Select(c => new Topic
+                {
+                    TopicId = c.topicId,
+                    TopicName = c.topicName,
+                }).ToList();
+                return View("Index", topics);
+            } catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
             }
+            return View();
+        }
+
+        [Route("Home/Topic/{id:int}")]
+        public IActionResult Topic(int id)
+        {
+            return View(id);
         }
 
         public IActionResult CreateTopic()

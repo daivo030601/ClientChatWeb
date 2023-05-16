@@ -4,8 +4,8 @@
     {
         public int MessageId { get; set; }
         public DateTime SentDate { get; set; }
-        public string Content { get; set; }
-        public string ClientName { get; set; }
+        public string Content { get; set; } = string.Empty;
+        public string ClientName { get; set; } = string.Empty;
         public int ClientId { get; set; }
         public int TopicId { get; set; }
     }

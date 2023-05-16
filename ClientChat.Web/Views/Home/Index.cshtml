@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Topic>
+﻿@model List<Topic>
 
 <div class="row">
     <div class="col-md-3">
@@ -8,7 +8,7 @@
             @foreach (var topic in Model)
             {
                 <li class="list-group-item">
-                    <a href="@Url.Action("Topic", "Home", new { topicId = topic.TopicId })">@topic.TopicName</a>
+                    <a asp-controller="Home" asp-action="Topic" asp-route-id="@topic.TopicId">Topic @topic.TopicName</a>
                 </li>
             }
         </ul>
