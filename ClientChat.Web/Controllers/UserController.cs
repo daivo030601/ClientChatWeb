@@ -8,6 +8,13 @@ namespace CleanChat.Web.Controllers
     [AllowAnonymous]
     public class UserController : Controller
     {
+        private readonly HttpClient _httpClient;
+        /*  private readonly ClientController _clientController;*/
+
+        public UserController( HttpClient httpClient )
+        {
+            _httpClient = httpClient;
+        }
         // GET: UserController
         public IActionResult Login()
         {
