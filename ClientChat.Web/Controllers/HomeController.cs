@@ -1,5 +1,4 @@
-﻿using CleanChat.Application.Repositories;
-using CleanChat.Web.Models;
+﻿using CleanChat.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;

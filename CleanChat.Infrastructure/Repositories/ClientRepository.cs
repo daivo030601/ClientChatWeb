@@ -43,7 +43,7 @@ namespace CleanChat.Infrastructure.Repositories
 
         }
 
-        public bool? SubscribeTopic(ClientTopic clientTopic)
+        public bool? SubscribeTopic( ClientTopic clientTopic)
         {
             try
             {

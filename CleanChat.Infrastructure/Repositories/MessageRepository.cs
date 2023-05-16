@@ -20,7 +20,7 @@ namespace CleanChat.Infrastructure.Repositories
             _context = context;
         }
 
-        public List<Message>? GetAllMessages()
+        public List<Message> GetAllMessages()
         {
             var entities = _context.Messages.Join(
                 _context.Clients, m => m.ClientId, c => c.ClientId, (m, c) => new Message
@@ -36,7 +36,7 @@ namespace CleanChat.Infrastructure.Repositories
             return entities;
         }
 
-        public List<Message>? GetMessagesByTopic(int topicId)
+        public List<Message> GetMessagesByTopic(int topicId)
         {
             var entities = _context.Messages.Join(
                 _context.Clients, m => m.ClientId, c => c.ClientId, ( m, c ) => new Message

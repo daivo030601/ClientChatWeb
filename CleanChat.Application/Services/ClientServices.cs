@@ -19,20 +19,25 @@ namespace CleanChat.Application.Services
             _repository = clientRepository;
         }
 
-        public CreateClientResponse CreateClient( CreateClientRequest client )
+        public CreateClientResponse? CreateClient( CreateClientRequest client )
         {
             CreateClientResponse response = new CreateClientResponse();
             Client entity = new() { Name = client.ClientName, Password = client.Password };
             var result = _repository.CreateClient( entity );
-            response.ClientId = result.ClientId;
-            return response;
+            if ( result.ClientId != 0 ) 
+            {
+                response.ClientId = result.ClientId;
+                return response;
+            }
+            return null;
+            
         }
 
         public LoginReponse? Login( LoginRequest request )
         {
             Client entity = new Client() { Name = request.ClientName, Password = request.Password };
             Client? result = _repository.Login( entity );
-            if ( result != null ) 
+            if ( result.ClientId != 0 ) 
             {
                 LoginReponse response = new() { ClientId = result.ClientId};
                 return response;
@@ -40,13 +45,18 @@ namespace CleanChat.Application.Services
             return null;
         }
 
-        public SubscribeTopicResponse SubscribeTopic(SubscribeTopicRequest request)
+        public SubscribeTopicResponse? SubscribeTopic(SubscribeTopicRequest request)
         {
             SubscribeTopicResponse response = new SubscribeTopicResponse();
             ClientTopic entity = new() { TopicId = request.TopicId, ClientId = request.ClientId };
-            var result = _repository.SubscribeTopic(entity);
-            response.Status = result;
-            return response;
+            bool? result = _repository.SubscribeTopic(entity);
+            if ( result == true || result == false )
+            {
+                response.Status = result;
+                return response;
+            }
+           
+            return null;
         }
 
         public List<TopicClientResponse>? GetTopicsFromClient(TopicsClientRequest request)

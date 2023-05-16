@@ -72,7 +72,7 @@ namespace CleanChat.Application.Services
             return null;
         }
 
-        public MessageReceiveDto GetMessageById(int id)
+        public MessageReceiveDto? GetMessageById(int id)
         {
             var entity = _messageRepository.GetMessageById(id);
             if ( entity != null )

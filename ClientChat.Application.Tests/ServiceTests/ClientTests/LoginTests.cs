@@ -14,7 +14,7 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
     public class LoginTests
     {
         [Fact]
-        public void Login_Success_Test()
+        public void LoginSuccessTest()
         {
             // Arrange
             var mockClientRepo = new Mock<IClientRepository>();
@@ -42,7 +42,8 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
             Assert.Equal(expectedClient.ClientId, result.ClientId);
         }
 
-        public void Login_Failure_Test()
+        [Fact]
+        public void LoginFailureTest()
         {
             var mockClientRepo = new Mock<IClientRepository>();
             

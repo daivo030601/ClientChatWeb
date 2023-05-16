@@ -20,7 +20,7 @@ namespace CleanChat.API.Controllers
         }
 
         // GET api/<ClientController>/
-        [HttpPost]
+        [HttpPost("login")]
         public ActionResult<LoginReponse> Login( LoginRequest request )
         {
             try
@@ -60,16 +60,29 @@ namespace CleanChat.API.Controllers
         }
 
         // POST api/<ClientController>
-        [HttpPost("Create")]
-        public ActionResult<CreateClientResponse> CreateClient(CreateClientRequest request )
+        [HttpPost("create")]
+        public ActionResult<CreateClientResponse> CreateClient( CreateClientRequest request )
         {
-            if ( request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string) ) 
+            
+            try
             {
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, request));
-            }
+                if ( request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string) )
+                {
+                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, request));
+                }
+                var response = _services.CreateClient(request);
+                if (response.ClientId != 0)
+                {
+                    return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
+                }
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, "Unable to create"));
+            } 
+            catch (Exception e)
+            {
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, $"Server Error:\n {e}"));
 
-            var response = _services.CreateClient(request);
-            return Ok(ResponseHandler.GetApiResponse(ResponseType.Success,response));
+            }
+            
         }
 
         [HttpPost("topic")]
@@ -78,7 +91,7 @@ namespace CleanChat.API.Controllers
             try
             {
                 var result = _services.SubscribeTopic(request);
-                if (result.Status == null)
+                if (result == null)
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, request));
                 } else if (result.Status == false)
