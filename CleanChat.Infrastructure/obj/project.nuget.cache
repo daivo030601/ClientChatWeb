@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "S80JsVLmdRL5SSD1a7lvQhR7CSO5H9szGogq2/Tc7+4QlGQK6YcrIuaf4dnT67Otez2nrGcVEcnfoEd7RiZz3g==",
+  "dgSpecHash": "UcKgcFQkxMXNbDGKFzDhVt6Et1gy2nk4bFFliVdw7VK4mQ03+aTWnX/qqE3d6FqhIuLB0yjsBvqPteLN2R7j8w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tnhiep_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\tnhiep_mantu\\Source\\Repos\\CleanChatApp\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\automapper.collection\\9.0.0\\automapper.collection.9.0.0.nupkg.sha512",
