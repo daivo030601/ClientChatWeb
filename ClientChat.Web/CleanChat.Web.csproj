@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanChat.Application\CleanChat.Application.csproj" />
     <ProjectReference Include="..\CleanChat.Infrastructure\CleanChat.Infrastructure.csproj" />
   </ItemGroup>
 
