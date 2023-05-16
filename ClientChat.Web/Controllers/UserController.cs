@@ -12,11 +12,11 @@ namespace CleanChat.Web.Controllers
     public class UserController : Controller
     {
         private readonly HttpClient _httpClient;
-      /*  private readonly ClientController _clientController;*/
+        /*  private readonly ClientController _clientController;*/
 
-        public UserController(HttpClient httpClient )
+        public UserController( HttpClient httpClient )
         {
-           _httpClient = httpClient;
+            _httpClient = httpClient;
         }
         // GET: UserController
         public IActionResult Login()
