@@ -10,7 +10,7 @@ using System;
 
 namespace CleanChat.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class MessageController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace CleanChat.API.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("Messages")]
         public ActionResult GetAllMessages()
         {
             try
@@ -29,7 +29,7 @@ namespace CleanChat.API.Controllers
                 var messages = _service.GetAllMessages();
                 if (messages == null)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "messages not found"));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
             }
@@ -39,15 +39,15 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public ActionResult GetMessageById(int id)
+        [HttpGet("Message/{MessageId}")]
+        public ActionResult GetMessageById(int MessageId)
         {
             try
             {
-                var message = _service.GetMessageById(id);
+                var message = _service.GetMessageById(MessageId);
                 if (message == null)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Message not found"));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, message));
             }
@@ -57,15 +57,15 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("topic/{topicId}")]
-        public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int topicId)
+        [HttpGet("Messages/{TopicId}")]
+        public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int TopicId)
         {
             try
             {
-                var messages = _service.GetMessagesByTopic(topicId);
+                var messages = _service.GetMessagesByTopic(TopicId);
                 if (messages == null )
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Message not found"));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
             }
@@ -75,7 +75,7 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("Message")]
         public ActionResult AddMessage(MessageSendDto message)
         {
             try

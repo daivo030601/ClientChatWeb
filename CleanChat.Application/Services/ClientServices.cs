@@ -19,13 +19,17 @@ namespace CleanChat.Application.Services
             _repository = clientRepository;
         }
 
-        public CreateClientResponse CreateClient( CreateClientRequest client )
+        public CreateClientResponse? CreateClient( CreateClientRequest client )
         {
             CreateClientResponse response = new CreateClientResponse();
             Client entity = new() { Name = client.ClientName, Password = client.Password };
             var result = _repository.CreateClient( entity );
-            response.ClientId = result.ClientId;
-            return response;
+            if ( result != null )
+            {
+                response.ClientId = result.ClientId;
+                return response;
+            }
+            return null;
         }
 
         public LoginReponse? Login( LoginRequest request )
@@ -49,6 +53,15 @@ namespace CleanChat.Application.Services
             return response;
         }
 
+        public SubscribeTopicResponse UnsubscribeTopic(SubscribeTopicRequest request)
+        {
+            SubscribeTopicResponse response = new SubscribeTopicResponse();
+            ClientTopic entity = new() { TopicId= request.TopicId, ClientId= request.ClientId };
+            var result = _repository.UnsubscribeTopic(entity);
+            response.Status = result;
+            return response;
+        }
+
         public List<TopicClientResponse>? GetTopicsFromClient(TopicsClientRequest request)
         {
             var topics = _repository.GetTopicsFromClient( request.ClientId );
@@ -59,7 +72,7 @@ namespace CleanChat.Application.Services
                 {
                     var response = new TopicClientResponse();
                     response.TopicId = topic.TopicId;
-                    response.TopicName = topic.Topic?.TopicName;
+                    response.TopicName = topic!.Topic!.TopicName;
                     result.Add(response);
                 }
                 return result;

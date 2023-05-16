@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CleanChat.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class ClientController : ControllerBase
     {
@@ -20,7 +20,7 @@ namespace CleanChat.API.Controllers
         }
 
         // GET api/<ClientController>/
-        [HttpGet]
+        [HttpGet("Login")]
         public ActionResult<LoginReponse> Login( [FromQuery]LoginRequest request )
         {
             try
@@ -32,7 +32,7 @@ namespace CleanChat.API.Controllers
                         return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
                     }
 
-                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.NotFound, request));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
             }
             catch ( Exception ex )
             {
@@ -40,16 +40,16 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<List<TopicClientResponse>> Get(int id)
+        [HttpGet("Topics/{ClientId}")]
+        public ActionResult<List<TopicClientResponse>> Get(int ClientId)
         {
             try
             {
-                var request = new TopicsClientRequest() { ClientId = id };
+                var request = new TopicsClientRequest() { ClientId = ClientId };
                 var result = _services.GetTopicsFromClient(request);
                 if (result == null)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, id));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
             }
@@ -60,7 +60,7 @@ namespace CleanChat.API.Controllers
         }
 
         // POST api/<ClientController>
-        [HttpPost]
+        [HttpPost("Client")]
         public ActionResult<CreateClientResponse> CreateClient(CreateClientRequest request )
         {
             if ( request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string) ) 
@@ -69,10 +69,14 @@ namespace CleanChat.API.Controllers
             }
 
             var response = _services.CreateClient(request);
+            if (response == null)
+            {
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, null));
+            }
             return Ok(ResponseHandler.GetApiResponse(ResponseType.Success,response));
         }
 
-        [HttpPost("topic")]
+        [HttpPost("Client/Topic")]
         public ActionResult<SubscribeTopicResponse> SubscribeTopic(SubscribeTopicRequest request)
         {
             try
@@ -80,14 +84,34 @@ namespace CleanChat.API.Controllers
                 var result = _services.SubscribeTopic(request);
                 if (result.Status == null)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, request));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 } else if (result.Status == false)
                 {
-                    return Ok(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, request));
+                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, null));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
             }
             catch (Exception e)
+            {
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
+            }
+        }
+
+        [HttpDelete("Client/Topic")]
+        public ActionResult<SubscribeTopicResponse> UnsubscribeTopic(SubscribeTopicRequest request)
+        {
+            try
+            {
+                var result = _services.UnsubscribeTopic(request);
+                if (result.Status == null)
+                {
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
+                } else if (result.Status == false)
+                {
+                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, null));
+                }
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
+            } catch (Exception e)
             {
                 return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
             }
