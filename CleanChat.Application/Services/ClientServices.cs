@@ -57,6 +57,15 @@ namespace CleanChat.Application.Services
             return null;
         }
 
+        public SubscribeTopicResponse UnsubscribeTopic(SubscribeTopicRequest request)
+        {
+            SubscribeTopicResponse response = new SubscribeTopicResponse();
+            ClientTopic entity = new() { TopicId= request.TopicId, ClientId= request.ClientId };
+            var result = _repository.UnsubscribeTopic(entity);
+            response.Status = result;
+            return response;
+        }
+
         public List<TopicClientResponse>? GetTopicsFromClient(TopicsClientRequest request)
         {
             var topics = _repository.GetTopicsFromClient( request.ClientId );
@@ -68,7 +77,7 @@ namespace CleanChat.Application.Services
                     var response = new TopicClientResponse
                     {
                         TopicId = topic.TopicId,
-                        TopicName = topic.Topic?.TopicName
+                        TopicName = topic!.Topic!.TopicName
                     };
                     result.Add(response);
                 }

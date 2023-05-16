@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CleanChat.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class ClientController : ControllerBase
     {
@@ -32,7 +32,7 @@ namespace CleanChat.API.Controllers
                         return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
                     }
 
-                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.NotFound, request));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
             }
             catch ( Exception ex )
             {
@@ -40,16 +40,16 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("{Id}")]
-        public ActionResult<List<TopicClientResponse>> Get(int id)
+        [HttpGet("Topics/{ClientId}")]
+        public ActionResult<List<TopicClientResponse>> Get(int ClientId)
         {
             try
             {
-                var request = new TopicsClientRequest() { ClientId = id };
+                var request = new TopicsClientRequest() { ClientId = ClientId };
                 var result = _services.GetTopicsFromClient(request);
-                if (result.Count == 0)
+                if (result == null)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Client hasn't subscribe any topic yet"));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
 
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result)); 
@@ -66,26 +66,24 @@ namespace CleanChat.API.Controllers
         {
             try
             {
-                if ( request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string) )
+                if (request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string))
                 {
                     return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, request));
                 }
 
                 var response = _services.CreateClient(request);
-                if (response != null)
+                if (response == null)
                 {
-                    return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
+                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, null));
                 }
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, "Client has already existed"));
-            }
-            catch(Exception ex) 
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
+            } catch (Exception e)
             {
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, ex.Message));
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
             }
-           
         }
 
-        [HttpPost("Topic")]
+        [HttpPost("Client/Topic")]
         public ActionResult<SubscribeTopicResponse> SubscribeTopic(SubscribeTopicRequest request)
         {
             try
@@ -93,14 +91,34 @@ namespace CleanChat.API.Controllers
                 var result = _services.SubscribeTopic(request);
                 if (result.Status == null)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, request));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 } else if (result.Status == false)
                 {
-                    return Ok(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, request));
+                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, null));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
             }
             catch (Exception e)
+            {
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
+            }
+        }
+
+        [HttpDelete("Client/Topic")]
+        public ActionResult<SubscribeTopicResponse> UnsubscribeTopic(SubscribeTopicRequest request)
+        {
+            try
+            {
+                var result = _services.UnsubscribeTopic(request);
+                if (result.Status == null)
+                {
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
+                } else if (result.Status == false)
+                {
+                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, null));
+                }
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
+            } catch (Exception e)
             {
                 return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
             }

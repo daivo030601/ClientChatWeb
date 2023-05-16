@@ -22,15 +22,13 @@ namespace CleanChat.Infrastructure.Repositories
         {
             try
             {
-                var clientDB= _chatDbContext.Clients.Where(c => c.Name == client.Name && c.Password == client.Password).FirstOrDefault();
-                if (clientDB.ClientId == 0) 
+                if (_chatDbContext.Clients.Any(c => c.Password == client.Password && c.Name == client.Name))
                 {
-                    _chatDbContext.Clients.Add(client);
-                    _chatDbContext.SaveChanges();
-                    return client;
+                    return null;
                 }
-                return null;
-                
+                _chatDbContext.Clients.Add(client);
+                _chatDbContext.SaveChanges();
+                return client;
             }
             catch (Exception ex)
             {
@@ -68,6 +66,29 @@ namespace CleanChat.Infrastructure.Repositories
                 return null;
             }
             catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool? UnsubscribeTopic(ClientTopic clientTopic)
+        {
+            try
+            {
+                if (_chatDbContext.Clients.Any(c => c.ClientId == clientTopic.ClientId)
+                    && _chatDbContext.Topics.Any(m => m.TopicId == clientTopic.TopicId))
+                {
+                    if (_chatDbContext.ClientTopics.Any(c => c.ClientId == clientTopic.ClientId
+                        && c.TopicId == clientTopic.TopicId))
+                    {
+                        _chatDbContext.ClientTopics.Remove(clientTopic);
+                        _chatDbContext.SaveChanges();
+                        return true;
+                    }
+                    return false;
+                }
+                return null;
+            } catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

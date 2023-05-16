@@ -28,13 +28,16 @@ namespace CleanChat.API.Response
                     break;
                 case ResponseType.AlreadyExist:
                     response.Code = "3";
-                    response.Message = "object already exist";
+                    response.Message = "Already exists";
                     break;
                 case ResponseType.NotFound:
                     response.Code = "2";
-                    response.Message = "No object available";
+                    response.Message = "Not Found";
                     break;
-
+                case ResponseType.Failure:
+                    response.Code = "4";
+                    response.Message = "Fail";
+                    break;
             }
             return response;
         }

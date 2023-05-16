@@ -10,7 +10,7 @@ using System;
 
 namespace CleanChat.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class MessageController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace CleanChat.API.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("Messages")]
         public ActionResult GetAllMessages()
         {
             try
@@ -29,12 +29,9 @@ namespace CleanChat.API.Controllers
                 var messages = _service.GetAllMessages();
                 if (messages.Count == 0)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "messages not found"));
-                } else if (messages.Count != 0) 
-                {
-                    return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, "Unable to get messages"));
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
             }
             catch (Exception e)
             {
@@ -42,15 +39,15 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("{Id}")]
-        public ActionResult GetMessageById(int id)
+        [HttpGet("Message/{MessageId}")]
+        public ActionResult GetMessageById(int MessageId)
         {
             try
             {
-                var message = _service.GetMessageById(id);
+                var message = _service.GetMessageById(MessageId);
                 if (message == null)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Message not found"));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, message));
             }
@@ -60,18 +57,15 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("TopicId")]
-        public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int topicId)
+        [HttpGet("Messages/{TopicId}")]
+        public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int TopicId)
         {
             try
             {
-                var messages = _service.GetMessagesByTopic(topicId);
-                if (messages.Count == 0 )
+                var messages = _service.GetMessagesByTopic(TopicId);
+                if (messages == null )
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, $"Messages not found in topic {topicId}"));
-                } else if (messages.Count != 0) 
-                {
-                    return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
                 return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Success, "Unable to get messages by Topic"));
             }
@@ -81,7 +75,7 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("Message")]
         public ActionResult AddMessage(MessageSendDto message)
         {
             try

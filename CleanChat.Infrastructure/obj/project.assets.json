@@ -3602,19 +3602,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\knguyen5_mantu\\.nuget\\packages\\": {}
+    "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\tnhiep_mantu\\source\\repos\\CleanChatApp\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
       "projectName": "CleanChat.Infrastructure",
-      "projectPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\knguyen5_mantu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Infrastructure\\obj\\",
+      "projectPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\CleanChatApp\\CleanChat.Infrastructure\\CleanChat.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\tnhiep_mantu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\CleanChatApp\\CleanChat.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\knguyen5_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tnhiep_mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3628,8 +3628,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj": {
-              "projectPath": "C:\\Users\\knguyen5_mantu\\source\\repos\\ClientChatWeb\\CleanChat.Application\\CleanChat.Application.csproj"
+            "C:\\Users\\tnhiep_mantu\\source\\repos\\CleanChatApp\\CleanChat.Application\\CleanChat.Application.csproj": {
+              "projectPath": "C:\\Users\\tnhiep_mantu\\source\\repos\\CleanChatApp\\CleanChat.Application\\CleanChat.Application.csproj"
             }
           }
         }
@@ -3690,5 +3690,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\tnhiep_mantu\\source\\repos\\CleanChatApp\\CleanChat.Infrastructure\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
