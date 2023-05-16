@@ -22,14 +22,14 @@ namespace CleanChat.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllMessages()
+        public ActionResult<List<MessageReceiveDto>> GetAllMessages()
         {
             try
             {
                 var messages = _service.GetAllMessages();
                 if (messages == null)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "messages not found"));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Messages not found"));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
             }
@@ -65,7 +65,7 @@ namespace CleanChat.API.Controllers
                 var messages = _service.GetMessagesByTopic(topicId);
                 if (messages == null )
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Message not found"));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Messages not found"));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
             }

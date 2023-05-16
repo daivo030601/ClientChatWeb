@@ -25,7 +25,7 @@ namespace CleanChat.Application.Services
             _messageRepository = messageRepository;
         }
 
-        public List<MessageReceiveDto> GetAllMessages()
+        public List<MessageReceiveDto>? GetAllMessages()
         {
             List<MessageReceiveDto> response = new List<MessageReceiveDto>();
             var entities = _messageRepository.GetAllMessages();
@@ -44,15 +44,16 @@ namespace CleanChat.Application.Services
                         TopicId = entity.TopicId,
                     });
                 }
+                return response;
             }
-            return response;
+            return null;
         }
 
-        public List<MessageReceiveDto> GetMessagesByTopic(int topicId)
+        public List<MessageReceiveDto>? GetMessagesByTopic(int topicId)
         {
             List<MessageReceiveDto> response = new List<MessageReceiveDto>();
             var entities = _messageRepository.GetMessagesByTopic(topicId);
-            if ( entities != null )
+            if ( entities.Count != 0 )
             {
                 foreach ( var entity in entities )
                 {
@@ -66,8 +67,9 @@ namespace CleanChat.Application.Services
                         TopicId = entity.TopicId,
                     });
                 }
+                return response;
             }
-            return response;
+            return null;
         }
 
         public MessageReceiveDto GetMessageById(int id)
@@ -91,7 +93,7 @@ namespace CleanChat.Application.Services
             
         }
 
-        public AddedMessageResponse AddMessage(MessageSendDto message)
+        public AddedMessageResponse? AddMessage(MessageSendDto message)
         {
             Message mes = new Message
             {
@@ -100,11 +102,15 @@ namespace CleanChat.Application.Services
                 TopicId = message.TopicId,
             };
             var entity = _messageRepository.AddMessage(mes);
-            AddedMessageResponse response = new AddedMessageResponse
+            if ( entity.MessageId != 0 )
             {
-                MessageId = entity.MessageId,
-            };
-            return response;
+                AddedMessageResponse response = new AddedMessageResponse
+                {
+                    MessageId = entity.MessageId,
+                };
+                return response;
+            }
+            return null;
         }
     }
 }

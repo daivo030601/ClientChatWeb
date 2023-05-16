@@ -1,6 +1,5 @@
 ﻿using CleanChat.Application.Repositories;
 using CleanChat.Application.Services;
-using CleanChat.Domain.DTOs.Requests;
 using CleanChat.Domain.DTOs.Responses;
 using CleanChat.Domain.Entities;
 using Moq;
@@ -12,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace ClientChat.Application.Tests.ServiceTests.MessageTests
 {
-    public class GetAllMessageTests
+    public class GetMessagesByTopicTests
     {
         [Fact]
-        public void GetAllMessagesSuccess()
+        public void GetMessagesByTopicSuccess()
         {
             // Arrange
             var mockMessageRepo = new Mock<IMessageRepository>();
@@ -36,8 +35,8 @@ namespace ClientChat.Application.Tests.ServiceTests.MessageTests
                         MessageId = 2,
                         SentDate = date,
                         Content = "test 2",
-                        ClientName = "test",
-                        ClientId = 1,
+                        ClientName = "test 2",
+                        ClientId = 2,
                         TopicId = 1,
                     },
                     new Message()
@@ -47,24 +46,24 @@ namespace ClientChat.Application.Tests.ServiceTests.MessageTests
                         Content = "test 3",
                         ClientName = "test",
                         ClientId = 1,
-                        TopicId = 2,
+                        TopicId = 1,
                     },
                      new Message()
                     {
                         MessageId = 4,
                         SentDate = date,
-                        Content = "test 3",
-                        ClientName = "test",
-                        ClientId = 1,
-                        TopicId = 2,
+                        Content = "test 4",
+                        ClientName = "test 3",
+                        ClientId = 3,
+                        TopicId = 1,
                     },
 
             };
-            mockMessageRepo.Setup(m => m.GetAllMessages()).Returns(expected);
+            mockMessageRepo.Setup(m => m.GetMessagesByTopic(It.IsAny<int>())).Returns(expected);
             var messageService = new MessageService(mockMessageRepo.Object);
 
             // Act
-            var result = messageService.GetAllMessages();
+            var result = messageService.GetMessagesByTopic(2);
 
             // Assert
             Assert.NotNull(result);
@@ -73,21 +72,20 @@ namespace ClientChat.Application.Tests.ServiceTests.MessageTests
         }
 
         [Fact]
-        public void GetAllMessagesEmpty()
+        public void GetMessagesByTopicEmpty()
         {
             // Arrange
             var mockMessageRepo = new Mock<IMessageRepository>();
             var date = DateTime.Now;
-          
-            mockMessageRepo.Setup(m => m.GetAllMessages()).Returns(new List<Message>());
+
+            mockMessageRepo.Setup(m => m.GetMessagesByTopic(It.IsAny<int>())).Returns(new List<Message>());
             var messageService = new MessageService(mockMessageRepo.Object);
 
             // Act
-            var result = messageService.GetAllMessages();
+            var result = messageService.GetMessagesByTopic(1);
 
             // Assert
             Assert.Null(result);
-            
-        }          
+        }
     }
 }
