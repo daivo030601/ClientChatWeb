@@ -13,7 +13,7 @@ namespace CleanChat.Web.Controllers
         {
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:7221/api/Topic"))
+                using (var response = await httpClient.GetAsync("https://localhost:7221/api/Topics"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     var apiResponseObj = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
