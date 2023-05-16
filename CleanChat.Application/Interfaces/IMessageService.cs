@@ -8,9 +8,9 @@ namespace CleanChat.Application.Services.Interface
 {
     public interface IMessageService
     {
-        List<MessageReceiveDto> GetAllMessages();
-        List<MessageReceiveDto> GetMessagesByTopic(int topicId);
-        MessageReceiveDto GetMessageById(int id);
-        AddedMessageResponse AddMessage(MessageSendDto message);
+        List<MessageReceiveDto>? GetAllMessages();
+        List<MessageReceiveDto>? GetMessagesByTopic(int topicId);
+        MessageReceiveDto? GetMessageById(int id);
+        AddedMessageResponse? AddMessage(MessageSendDto message);
     }
 }

@@ -85,7 +85,8 @@ namespace ClientChat.Application.Tests.ServiceTests.MessageTests
             var result = messageService.GetMessagesByTopic(1);
 
             // Assert
-            Assert.Null(result);
+            Assert.Empty(result);
+            Assert.IsType<List<MessageReceiveDto>>(result);
         }
     }
 }

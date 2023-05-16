@@ -20,8 +20,8 @@ namespace CleanChat.API.Controllers
         }
 
         // GET api/<ClientController>/
-        [HttpGet]
-        public ActionResult<LoginReponse> Login( [FromQuery]LoginRequest request )
+        [HttpPost("Login")]
+        public ActionResult<LoginReponse> Login(LoginRequest request )
         {
             try
                 {
@@ -40,18 +40,19 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Id}")]
         public ActionResult<List<TopicClientResponse>> Get(int id)
         {
             try
             {
                 var request = new TopicsClientRequest() { ClientId = id };
                 var result = _services.GetTopicsFromClient(request);
-                if (result == null)
+                if (result.Count == 0)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, id));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Client hasn't subscribe any topic yet"));
                 }
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
+
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result)); 
             }
             catch (Exception e)
             {
@@ -60,19 +61,31 @@ namespace CleanChat.API.Controllers
         }
 
         // POST api/<ClientController>
-        [HttpPost]
+        [HttpPost("Create")]
         public ActionResult<CreateClientResponse> CreateClient(CreateClientRequest request )
         {
-            if ( request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string) ) 
+            try
             {
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, request));
-            }
+                if ( request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string) )
+                {
+                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, request));
+                }
 
-            var response = _services.CreateClient(request);
-            return Ok(ResponseHandler.GetApiResponse(ResponseType.Success,response));
+                var response = _services.CreateClient(request);
+                if (response != null)
+                {
+                    return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
+                }
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, "Client has already existed"));
+            }
+            catch(Exception ex) 
+            {
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, ex.Message));
+            }
+           
         }
 
-        [HttpPost("topic")]
+        [HttpPost("Topic")]
         public ActionResult<SubscribeTopicResponse> SubscribeTopic(SubscribeTopicRequest request)
         {
             try

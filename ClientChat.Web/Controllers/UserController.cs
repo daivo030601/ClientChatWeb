@@ -1,7 +1,10 @@
-﻿using CleanChat.Web.Models;
+﻿using CleanChat.Domain.DTOs.Requests;
+using CleanChat.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace CleanChat.Web.Controllers
 {
@@ -22,16 +25,52 @@ namespace CleanChat.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(User user)
+        public async Task<IActionResult> LoginAsync(User user)
         {
-            // TODO: Authenticate user and redirect to main page if successful
-            if (user.Username == "admin" && user.Password == "password")
+            try
             {
-                return RedirectToAction("Index", "Home");
-            } 
-            else
+                var request = new LoginRequest
+                {
+                    ClientName = user.Username,
+                    Password = user.Password
+                };
+
+
+
+                var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+
+
+
+                var response = await _httpClient.PostAsync("https://localhost:7221/api/Client/Login", content);
+
+
+
+                response.EnsureSuccessStatusCode();
+
+
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+
+
+                var loginResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
+
+
+
+                if ( loginResponse != null && loginResponse.Code == "0" )
+                {
+                    // TODO: Implement user authentication and redirect to main page if successful
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Wrong username or password.");
+                    return View(user);
+                }
+            }
+            catch ( Exception ex )
             {
-                ModelState.AddModelError("", "Wrong username or password.");
+                ModelState.AddModelError(string.Empty, $"An error occurred while logging in: {ex.Message}");
                 return View(user);
             }
         }
@@ -42,9 +81,49 @@ namespace CleanChat.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(User user)
+        public async Task<IActionResult> Register( User user )
         {
-            // TODO: Validate user input, create user account, and redirect to main page if successful
+            // TODO: Validate user input, create user account, and redirect to main page if successful
+            try
+            {
+                if ( user.Password != user.ConfirmPassword )
+                {
+                    ModelState.AddModelError(string.Empty, "Your Password is not match, please try again");
+                    return View(user);
+                }
+                var createClientObj = new CreateClientRequest
+                {
+                    ClientName = user.Username,
+                    Password = user.Password
+                };
+                var request = new StringContent(JsonConvert.SerializeObject(createClientObj), Encoding.UTF8, "application/json");
+
+
+
+                var response = await _httpClient.PostAsync("https://localhost:7221/api/Client/Create", request);
+                
+
+
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+
+
+                var createClientResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
+                if ( createClientResponse != null && createClientResponse.Code == "0" )
+                {
+                    return RedirectToAction("Index", "Home");
+                } else if ( createClientResponse != null && createClientResponse.Code == "3" )
+                {
+                    ModelState.AddModelError(string.Empty, createClientResponse.ResponseData.ToString());
+                    return View(user);
+                }
+            }
+            catch ( Exception ex )
+            {
+                ModelState.AddModelError(string.Empty, $"An error occurred while logging in: {ex.Message}");
+                return View(user);
+            }
             return View();
         }
 

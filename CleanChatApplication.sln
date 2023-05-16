@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanChat.Web", "ClientChat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanChat.Application", "CleanChat.Application\CleanChat.Application.csproj", "{DABFEEFA-9164-43DA-8525-7E8CDD23A6A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientChat.Application.Tests", "ClientChat.Application.Tests\ClientChat.Application.Tests.csproj", "{7ECFBBDD-F08B-4148-A1EA-E44CB0E4750E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientChat.Application.Tests", "ClientChat.Application.Tests\ClientChat.Application.Tests.csproj", "{1F3EA703-5B88-4C1F-A66D-593C98E2050D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,10 @@ Global
 		{DABFEEFA-9164-43DA-8525-7E8CDD23A6A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DABFEEFA-9164-43DA-8525-7E8CDD23A6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DABFEEFA-9164-43DA-8525-7E8CDD23A6A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7ECFBBDD-F08B-4148-A1EA-E44CB0E4750E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7ECFBBDD-F08B-4148-A1EA-E44CB0E4750E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7ECFBBDD-F08B-4148-A1EA-E44CB0E4750E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7ECFBBDD-F08B-4148-A1EA-E44CB0E4750E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F3EA703-5B88-4C1F-A66D-593C98E2050D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F3EA703-5B88-4C1F-A66D-593C98E2050D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F3EA703-5B88-4C1F-A66D-593C98E2050D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F3EA703-5B88-4C1F-A66D-593C98E2050D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

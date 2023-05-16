@@ -72,7 +72,8 @@ namespace ClientChat.Application.Tests.ServiceTests.MessageTests
             var result = messageService.AddMessage(request);
 
             // Assert
-            Assert.Null(result);
+            Assert.Null(result.MessageResponse);
+            Assert.True(result.MessageId == 0);
         }
     }
 }

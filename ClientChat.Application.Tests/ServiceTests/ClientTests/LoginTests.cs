@@ -14,7 +14,7 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
     public class LoginTests
     {
         [Fact]
-        public void Login_Success_Test()
+        public void LoginSuccessTest()
         {
             // Arrange
             var mockClientRepo = new Mock<IClientRepository>();
@@ -41,8 +41,8 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
             Assert.NotNull(result);
             Assert.Equal(expectedClient.ClientId, result.ClientId);
         }
-
-        public void Login_Failure_Test()
+        [Fact]
+        public void LoginFailureTest()
         {
             var mockClientRepo = new Mock<IClientRepository>();
             
@@ -51,8 +51,8 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
                 ClientName = "test",
                 Password = "123"
             };
-
-            mockClientRepo.Setup(c => c.Login(It.IsAny<Client>())).Returns(new Client());
+            Client? expected = null;
+            mockClientRepo.Setup(c => c.Login(It.IsAny<Client>())).Returns(expected);
 
             var clientService = new ClientServices(mockClientRepo.Object);
 

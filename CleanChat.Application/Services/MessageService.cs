@@ -25,7 +25,7 @@ namespace CleanChat.Application.Services
             _messageRepository = messageRepository;
         }
 
-        public List<MessageReceiveDto> GetAllMessages()
+        public List<MessageReceiveDto>? GetAllMessages()
         {
             List<MessageReceiveDto> response = new List<MessageReceiveDto>();
             var entities = _messageRepository.GetAllMessages();
@@ -44,11 +44,12 @@ namespace CleanChat.Application.Services
                         TopicId = entity.TopicId,
                     });
                 }
+                return response;
             }
-            return response;
+            return null;
         }
 
-        public List<MessageReceiveDto> GetMessagesByTopic(int topicId)
+        public List<MessageReceiveDto>? GetMessagesByTopic(int topicId)
         {
             List<MessageReceiveDto> response = new List<MessageReceiveDto>();
             var entities = _messageRepository.GetMessagesByTopic(topicId);
@@ -66,11 +67,12 @@ namespace CleanChat.Application.Services
                         TopicId = entity.TopicId,
                     });
                 }
+                return response;
             }
-            return response;
+            return null;
         }
 
-        public MessageReceiveDto GetMessageById(int id)
+        public MessageReceiveDto? GetMessageById(int id)
         {
             var entity = _messageRepository.GetMessageById(id);
             if ( entity != null )

@@ -19,13 +19,17 @@ namespace CleanChat.Application.Services
             _repository = clientRepository;
         }
 
-        public CreateClientResponse CreateClient( CreateClientRequest client )
+        public CreateClientResponse? CreateClient( CreateClientRequest client )
         {
             CreateClientResponse response = new CreateClientResponse();
             Client entity = new() { Name = client.ClientName, Password = client.Password };
             var result = _repository.CreateClient( entity );
-            response.ClientId = result.ClientId;
-            return response;
+            if ( result != null ) 
+            {
+                response.ClientId = result.ClientId;
+                return response;
+            }
+            return null;
         }
 
         public LoginReponse? Login( LoginRequest request )
@@ -40,13 +44,17 @@ namespace CleanChat.Application.Services
             return null;
         }
 
-        public SubscribeTopicResponse SubscribeTopic(SubscribeTopicRequest request)
+        public SubscribeTopicResponse? SubscribeTopic(SubscribeTopicRequest request)
         {
             SubscribeTopicResponse response = new SubscribeTopicResponse();
             ClientTopic entity = new() { TopicId = request.TopicId, ClientId = request.ClientId };
             var result = _repository.SubscribeTopic(entity);
-            response.Status = result;
-            return response;
+            if ( result != null )
+            {
+                response.Status = result;
+                return response;
+            }
+            return null;
         }
 
         public List<TopicClientResponse>? GetTopicsFromClient(TopicsClientRequest request)
@@ -57,9 +65,11 @@ namespace CleanChat.Application.Services
             {
                 foreach ( var topic in topics )
                 {
-                    var response = new TopicClientResponse();
-                    response.TopicId = topic.TopicId;
-                    response.TopicName = topic.Topic?.TopicName;
+                    var response = new TopicClientResponse
+                    {
+                        TopicId = topic.TopicId,
+                        TopicName = topic.Topic?.TopicName
+                    };
                     result.Add(response);
                 }
                 return result;

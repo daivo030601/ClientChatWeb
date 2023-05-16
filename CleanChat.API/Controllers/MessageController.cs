@@ -27,11 +27,14 @@ namespace CleanChat.API.Controllers
             try
             {
                 var messages = _service.GetAllMessages();
-                if (messages == null)
+                if (messages.Count == 0)
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "messages not found"));
+                } else if (messages.Count != 0) 
+                {
+                    return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
                 }
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, "Unable to get messages"));
             }
             catch (Exception e)
             {
@@ -39,7 +42,7 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{Id}")]
         public ActionResult GetMessageById(int id)
         {
             try
@@ -57,17 +60,20 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("topic/{topicId}")]
+        [HttpGet("TopicId")]
         public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int topicId)
         {
             try
             {
                 var messages = _service.GetMessagesByTopic(topicId);
-                if (messages == null )
+                if (messages.Count == 0 )
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Message not found"));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, $"Messages not found in topic {topicId}"));
+                } else if (messages.Count != 0) 
+                {
+                    return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
                 }
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Success, "Unable to get messages by Topic"));
             }
             catch (Exception e)
             {
@@ -82,11 +88,11 @@ namespace CleanChat.API.Controllers
             {
                 var response = _service.AddMessage(message);
                 response.MessageResponse = response.MessageId != 0 ? "Message added successfully" : "Unable to add message";
-                if (response == null )
+                if (response.MessageId != 0 )
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, response));
+                    return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
                 }
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, response));           
             }
             catch (Exception e)
             {

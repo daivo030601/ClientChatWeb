@@ -18,13 +18,19 @@ namespace CleanChat.Infrastructure.Repositories
         {
             _chatDbContext = chatDbContext;
         }
-        public Client CreateClient(Client client)
+        public Client? CreateClient(Client client)
         {
             try
             {
-                _chatDbContext.Clients.Add(client);
-                _chatDbContext.SaveChanges();
-                return client;
+                var clientDB= _chatDbContext.Clients.Where(c => c.Name == client.Name && c.Password == client.Password).FirstOrDefault();
+                if (clientDB.ClientId == 0) 
+                {
+                    _chatDbContext.Clients.Add(client);
+                    _chatDbContext.SaveChanges();
+                    return client;
+                }
+                return null;
+                
             }
             catch (Exception ex)
             {

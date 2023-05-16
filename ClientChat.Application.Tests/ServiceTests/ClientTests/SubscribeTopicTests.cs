@@ -15,7 +15,7 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
     public class SubscribeTopicTests
     {
         [Fact]
-        public void Subscribe_Topic_Return_True()
+        public void SubscribeTopicReturnTrue()
         {
             var mockClientRepo = new Mock<IClientRepository>();
             var subscribeToppicRequest = new SubscribeTopicRequest()
@@ -23,7 +23,8 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
                 TopicId = 1,
                 ClientId = 1,
             };
-            mockClientRepo.Setup(c => c.SubscribeTopic(It.IsAny<ClientTopic>())).Returns(true);
+            bool expected = true;
+            mockClientRepo.Setup(c => c.SubscribeTopic(It.IsAny<ClientTopic>())).Returns(expected);
 
             var clientService = new ClientServices(mockClientRepo.Object);
 
@@ -31,12 +32,12 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
             var result = clientService.SubscribeTopic(subscribeToppicRequest);
 
             // Assert
-            Assert.True(result.Status);
+            Assert.True(result.Status == true);
             Assert.IsType<SubscribeTopicResponse>(result);
         }
 
         [Fact]
-        public void Subscribe_Topic_Return_False()
+        public void SubscribeTopicReturnFalse()
         {
             // Arrange
             var mockClientRepo = new Mock<IClientRepository>();
@@ -45,7 +46,8 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
                 TopicId = 1,
                 ClientId = 1,
             };
-            mockClientRepo.Setup(c => c.SubscribeTopic(It.IsAny<ClientTopic>())).Returns(false);
+            bool expected = false;
+            mockClientRepo.Setup(c => c.SubscribeTopic(It.IsAny<ClientTopic>())).Returns(expected);
 
             var clientService = new ClientServices(mockClientRepo.Object);
 
@@ -53,12 +55,12 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
             var result = clientService.SubscribeTopic(subscribeToppicRequest);
 
             // Assert
-            Assert.False(result.Status);
+            Assert.True(result.Status == false);
             Assert.IsType<SubscribeTopicResponse>(result);
         }
 
         [Fact]
-        public void Subscribe_Topic_Return_Null()
+        public void SubscribeTopicReturnNull()
         {
             // Arrange
             var mockClientRepo = new Mock<IClientRepository>();
@@ -76,8 +78,7 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
             var result = clientService.SubscribeTopic(subscribeToppicRequest);
 
             // Assert
-            Assert.Null(result.Status);
-            Assert.IsType<SubscribeTopicResponse>(result);
+            Assert.Null(result);
         }
     }
 }

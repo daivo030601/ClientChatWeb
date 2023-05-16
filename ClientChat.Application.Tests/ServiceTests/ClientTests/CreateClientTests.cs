@@ -16,7 +16,7 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
     public class CreateClientTests
     {
         [Fact]
-        public void Create_Client_Success()
+        public void CreateClientSuccess()
         {
             var mockClientRepo = new Mock<IClientRepository>();
             var entity = new Client()
@@ -43,7 +43,7 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
         }
 
         [Fact]
-        public void Create_Client_Failure()
+        public void CreateClientFailure()
         {
             var mockClientRepo = new Mock<IClientRepository>();
 
@@ -58,8 +58,7 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
 
             var result = clientService.CreateClient(request);
 
-            Assert.IsType<CreateClientResponse>(result);
-            Assert.Equal(0, result.ClientId);
+            Assert.Null(result);
         }
 
     }
