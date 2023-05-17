@@ -21,8 +21,6 @@ namespace CleanChat.API.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public ActionResult<List<MessageReceiveDto>> GetAllMessages()
         [HttpGet("Messages")]
         public ActionResult GetAllMessages()
         {
@@ -63,7 +61,7 @@ namespace CleanChat.API.Controllers
         }
 
         [HttpGet("Messages/{TopicId}")]
-        public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int TopicId)
+        public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int topicId)
         {
             try
             {
@@ -88,8 +86,6 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult<AddedMessageResponse> AddMessage(MessageSendDto message)
         [HttpPost("Message")]
         public ActionResult AddMessage(MessageSendDto message)
         {
