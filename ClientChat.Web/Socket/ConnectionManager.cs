@@ -80,10 +80,8 @@ namespace CleanChat.Web.Socket
                 }
             }
 
-            WebSocket socketValue;
-            _sockets.TryRemove(GetId(socket), out socketValue);
 
-            await socketValue.CloseAsync(closeStatus: WebSocketCloseStatus.NormalClosure,
+            await socket.CloseAsync(closeStatus: WebSocketCloseStatus.NormalClosure,
                                     statusDescription: "Closed by the ConnectionManager",
                                     cancellationToken: CancellationToken.None);
         }

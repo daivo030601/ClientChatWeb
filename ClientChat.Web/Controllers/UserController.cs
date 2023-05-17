@@ -91,6 +91,7 @@ namespace CleanChat.Web.Controllers
                 {
                     var clientId = JsonConvert.DeserializeObject<Id>(createClientResponse.ResponseData.ToString());
                     HttpContext.Session.SetString("ClientId", clientId.ClientId);
+                    HttpContext.Session.SetString("ClientName", clientId.ClientName);
                     return RedirectToAction("Index", "Home");
                 } else if ( createClientResponse != null && createClientResponse.Code == "3" )
                 {
