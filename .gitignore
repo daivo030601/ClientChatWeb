@@ -19,6 +19,8 @@ CleanChat.Domain\bin\Debug\net6.0
 *.rsuser
 *.suo
 *.user
+bin
+obj
 *.userosscache
 *.sln.docstates
 

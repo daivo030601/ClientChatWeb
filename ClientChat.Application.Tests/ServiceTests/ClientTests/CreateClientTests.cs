@@ -52,7 +52,8 @@ namespace ClientChat.Application.Tests.ServiceTests.ClientTests
                 ClientName = "test",
                 Password = "123"
             };
-            mockClientRepo.Setup(c => c.CreateClient(It.IsAny<Client>())).Returns(new Client());
+            Client? expected = null;
+            mockClientRepo.Setup(c => c.CreateClient(It.IsAny<Client>())).Returns(expected);
 
             var clientService = new ClientServices(mockClientRepo.Object);
 

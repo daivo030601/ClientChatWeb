@@ -40,12 +40,12 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("{Id}")]
-        public ActionResult<List<TopicClientResponse>> GetSubscribedTopics(int id)
+        [HttpGet("Topics/{clientId}")]
+        public ActionResult<List<TopicClientResponse>> GetSubscribedTopics(int clientId)
         {
             try
             {
-                var request = new TopicsClientRequest() { ClientId = ClientId };
+                var request = new TopicsClientRequest() { ClientId = clientId };
                 var result = _services.GetTopicsFromClient(request);
                 if (result == null)
                 {
