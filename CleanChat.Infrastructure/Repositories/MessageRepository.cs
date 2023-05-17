@@ -24,44 +24,38 @@ namespace CleanChat.Infrastructure.Repositories
         {
             var entities = _context.Messages.Join(
                 _context.Clients, m => m.ClientId, c => c.ClientId, (m, c) => new Message
-            {
+                {
                     MessageId = m.MessageId,
                     SentDate = m.SentDate,
                     Content = m.Content,
                     ClientName = c.Name,
                     ClientId = m.ClientId,
                     TopicId = m.TopicId,
-            }).ToList();
+                }).ToList();
 
             return entities;
         }
 
         public List<Message> GetMessagesByTopic(int topicId)
         {
-            var topicDB = _context.Topics.Where(t => t.TopicId == topicId).FirstOrDefault();
-            if (topicDB != null) 
-            {
-                var entities = _context.Messages.Join(
-               _context.Clients, m => m.ClientId, c => c.ClientId, ( m, c ) => new Message
-               {
-                   MessageId = m.MessageId,
-                   SentDate = m.SentDate,
-                   Content = m.Content,
-                   ClientName = c.Name,
-                   ClientId = m.ClientId,
-                   TopicId = m.TopicId,
-               }).Where(m => m.TopicId == topicId).ToList();
+            var entities = _context.Messages.Join(
+                _context.Clients, m => m.ClientId, c => c.ClientId, (m, c) => new Message
+                {
+                    MessageId = m.MessageId,
+                    SentDate = m.SentDate,
+                    Content = m.Content,
+                    ClientName = c.Name,
+                    ClientId = m.ClientId,
+                    TopicId = m.TopicId,
+                }).Where(m => m.TopicId == topicId).ToList();
 
-                return entities;
-            }
-            return null;
-           
+            return entities;
         }
 
         public Message GetMessageById(int id)
         {
             var entity = _context.Messages.Join(
-                _context.Clients, m => m.ClientId, c => c.ClientId, ( m, c ) => new Message
+                _context.Clients, m => m.ClientId, c => c.ClientId, (m, c) => new Message
                 {
                     MessageId = m.MessageId,
                     SentDate = m.SentDate,
@@ -86,7 +80,7 @@ namespace CleanChat.Infrastructure.Repositories
             {
                 throw new Exception(ex.Message);
             }
-        
+
 
             return entity;
         }

@@ -29,12 +29,9 @@ namespace CleanChat.API.Controllers
                 var messages = _service.GetAllMessages();
                 if (messages.Count == 0)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Messages not found"));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
-                
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
-                
-            
             }
             catch (Exception e)
             {
@@ -66,19 +63,11 @@ namespace CleanChat.API.Controllers
             try
             {
                 var messages = _service.GetMessagesByTopic(TopicId);
-                if ( messages == null )
+                if (messages == null)
                 {
-                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, $"Unable to get messages by Topic due to this Topic {TopicId} doesn't exist"));
-
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
-                if (messages.Count == 0 )
-                {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, $"Messages not found in topic {TopicId}"));
-                }
-                
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
-           
-                
             }
             catch (Exception e)
             {
@@ -86,7 +75,6 @@ namespace CleanChat.API.Controllers
             }
         }
 
-      
         [HttpPost("Message")]
         public ActionResult AddMessage(MessageSendDto message)
         {
@@ -94,13 +82,11 @@ namespace CleanChat.API.Controllers
             {
                 var response = _service.AddMessage(message);
                 response.MessageResponse = response.MessageId != 0 ? "Message added successfully" : "Unable to add message";
-                if (response.MessageId != 0 )
+                if (response.MessageId != 0)
                 {
                     return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
                 }
-
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, response));               
-                          
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, response));
             }
             catch (Exception e)
             {

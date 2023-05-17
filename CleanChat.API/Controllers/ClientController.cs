@@ -14,45 +14,45 @@ namespace CleanChat.API.Controllers
     {
         private readonly IClientServices _services;
 
-        public ClientController( IClientServices clientServices )
+        public ClientController(IClientServices clientServices)
         {
             _services = clientServices;
         }
 
         // GET api/<ClientController>/
         [HttpPost("Login")]
-        public ActionResult<LoginReponse> Login(LoginRequest request )
+        public ActionResult<LoginReponse> Login(LoginRequest request)
         {
             try
+            {
+
+                LoginReponse? response = _services.Login(request);
+                if (response != null)
                 {
+                    return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
+                }
 
-                    LoginReponse? response = _services.Login(request);
-                    if ( response != null )
-                    {
-                        return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
-                    }
-
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
+                return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
                 return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, ex.Message));
             }
         }
 
-        [HttpGet("Topics/{clientId}")]
-        public ActionResult<List<TopicClientResponse>> GetSubscribedTopics(int clientId)
+        [HttpGet("Topics/{ClientId}")]
+        public ActionResult<List<TopicClientResponse>> Get(int ClientId)
         {
             try
             {
-                var request = new TopicsClientRequest() { ClientId = clientId };
+                var request = new TopicsClientRequest() { ClientId = ClientId };
                 var result = _services.GetTopicsFromClient(request);
                 if (result == null)
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
 
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result)); 
+                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
             }
             catch (Exception e)
             {
@@ -62,10 +62,14 @@ namespace CleanChat.API.Controllers
 
         // POST api/<ClientController>
         [HttpPost("Create")]
-        public ActionResult<CreateClientResponse> CreateClient(CreateClientRequest request )
+        public ActionResult<CreateClientResponse> CreateClient(CreateClientRequest request)
         {
             try
             {
+                if (request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string))
+                {
+                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, request));
+                }
 
                 var response = _services.CreateClient(request);
                 if (response == null)
@@ -73,7 +77,8 @@ namespace CleanChat.API.Controllers
                     return BadRequest(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, null));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
             }
@@ -88,7 +93,8 @@ namespace CleanChat.API.Controllers
                 if (result.Status == null)
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
-                } else if (result.Status == false)
+                }
+                else if (result.Status == false)
                 {
                     return BadRequest(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, null));
                 }
@@ -109,12 +115,14 @@ namespace CleanChat.API.Controllers
                 if (result.Status == null)
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
-                } else if (result.Status == false)
+                }
+                else if (result.Status == false)
                 {
                     return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, null));
                 }
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, result));
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
             }
