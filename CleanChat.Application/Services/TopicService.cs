@@ -13,7 +13,7 @@ namespace CleanChat.Application.Services
 {
     public class TopicService : ITopicService
     {
-        public ITopicRepository _topicRepository { get; set; }
+        public readonly ITopicRepository _topicRepository;
         public TopicService(ITopicRepository topicRepository)
         {
             _topicRepository = topicRepository;
@@ -36,8 +36,10 @@ namespace CleanChat.Application.Services
         {
             Topic topic = new Topic() { TopicName = request.TopicName };
             var result = _topicRepository.CreateTopic(topic);
-            CreateTopicResponse response = new CreateTopicResponse();
-            response.TopicId = result.TopicId;
+            CreateTopicResponse response = new CreateTopicResponse
+            {
+                TopicId = result.TopicId
+            };
             return response;
         }
 

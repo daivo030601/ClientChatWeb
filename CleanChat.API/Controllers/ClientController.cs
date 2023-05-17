@@ -40,8 +40,8 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("Topics/{ClientId}")]
-        public ActionResult<List<TopicClientResponse>> Get(int ClientId)
+        [HttpGet("{Id}")]
+        public ActionResult<List<TopicClientResponse>> GetSubscribedTopics(int id)
         {
             try
             {
@@ -66,10 +66,6 @@ namespace CleanChat.API.Controllers
         {
             try
             {
-                if (request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string))
-                {
-                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, request));
-                }
 
                 var response = _services.CreateClient(request);
                 if (response == null)

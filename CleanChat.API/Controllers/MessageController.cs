@@ -21,6 +21,8 @@ namespace CleanChat.API.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public ActionResult<List<MessageReceiveDto>> GetAllMessages()
         [HttpGet("Messages")]
         public ActionResult GetAllMessages()
         {
@@ -29,9 +31,12 @@ namespace CleanChat.API.Controllers
                 var messages = _service.GetAllMessages();
                 if (messages.Count == 0)
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, "Messages not found"));
                 }
+                
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
+                
+            
             }
             catch (Exception e)
             {
@@ -62,12 +67,20 @@ namespace CleanChat.API.Controllers
         {
             try
             {
-                var messages = _service.GetMessagesByTopic(TopicId);
-                if (messages == null )
+                var messages = _service.GetMessagesByTopic(topicId);
+                if ( messages == null )
                 {
-                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
+                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, $"Unable to get messages by Topic due to this Topic {topicId} doesn't exist"));
+
                 }
+                if (messages.Count == 0 )
+                {
+                    return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, $"Messages not found in topic {topicId}"));
+                }
+                
                 return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, messages));
+           
+                
             }
             catch (Exception e)
             {
@@ -75,6 +88,8 @@ namespace CleanChat.API.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult<AddedMessageResponse> AddMessage(MessageSendDto message)
         [HttpPost("Message")]
         public ActionResult AddMessage(MessageSendDto message)
         {
@@ -86,7 +101,9 @@ namespace CleanChat.API.Controllers
                 {
                     return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
                 }
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, response));           
+
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, response));               
+                          
             }
             catch (Exception e)
             {

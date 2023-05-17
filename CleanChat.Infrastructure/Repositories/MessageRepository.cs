@@ -38,18 +38,24 @@ namespace CleanChat.Infrastructure.Repositories
 
         public List<Message> GetMessagesByTopic(int topicId)
         {
-            var entities = _context.Messages.Join(
-                _context.Clients, m => m.ClientId, c => c.ClientId, ( m, c ) => new Message
-                {
-                    MessageId = m.MessageId,
-                    SentDate = m.SentDate,
-                    Content = m.Content,
-                    ClientName = c.Name,
-                    ClientId = m.ClientId,
-                    TopicId = m.TopicId,
-                }).Where(m => m.TopicId == topicId).ToList();
-        
-            return entities;
+            var topicDB = _context.Topics.Where(t => t.TopicId == topicId).FirstOrDefault();
+            if (topicDB != null) 
+            {
+                var entities = _context.Messages.Join(
+               _context.Clients, m => m.ClientId, c => c.ClientId, ( m, c ) => new Message
+               {
+                   MessageId = m.MessageId,
+                   SentDate = m.SentDate,
+                   Content = m.Content,
+                   ClientName = c.Name,
+                   ClientId = m.ClientId,
+                   TopicId = m.TopicId,
+               }).Where(m => m.TopicId == topicId).ToList();
+
+                return entities;
+            }
+            return null;
+           
         }
 
         public Message GetMessageById(int id)
