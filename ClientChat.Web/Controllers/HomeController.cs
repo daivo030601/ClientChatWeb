@@ -78,7 +78,7 @@ namespace CleanChat.Web.Controllers
         //    return View(topic);
         //}
 
-        public IActionResult Topic(int topicId)
+        public async Task<IActionResult> Topic(int topicId)
         {
             // Use the 'topicId' parameter as needed, e.g., retrieve data from a database
             // Pass any necessary data to the view if required
@@ -89,7 +89,28 @@ namespace CleanChat.Web.Controllers
             ViewBag.clientId = clientId;
             ViewBag.clientName = clientName;
             ViewData["topicId"] = topicId;
-            return View();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://localhost:7221/api/Messages/{topicId}"))
+                {
+                    
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+
+
+                    var apiResponseObj = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
+                    if (apiResponseObj.Code == "0") // assuming success response has code "200"
+                    {
+                        var messages = JsonConvert.DeserializeObject<List<Message>>(apiResponseObj.ResponseData.ToString());
+                        return View(messages);
+                    }
+                    else
+                    {
+                        // handle error response
+                        return View("Error");
+                    }
+                }
+            }
         }
 
         [HttpPost]

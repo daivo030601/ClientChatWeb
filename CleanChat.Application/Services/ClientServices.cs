@@ -27,6 +27,7 @@ namespace CleanChat.Application.Services
             if ( result != null ) 
             {
                 response.ClientId = result.ClientId;
+                response.ClientName = result.Name;
                 return response;
             }
             return null;
