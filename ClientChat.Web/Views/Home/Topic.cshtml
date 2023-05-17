@@ -44,6 +44,10 @@
         var button = document.getElementById("sendButton");
         button.addEventListener("click", function () {
             var input = document.getElementById("textInput");
+            if (input.value == "") {
+                alert("Please enter message! luv u");
+                return;
+            } 
             var payload = {
                 content: input.value,
                 clientId: @ViewBag.clientId,
