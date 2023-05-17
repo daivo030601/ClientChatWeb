@@ -1,6 +1,6 @@
 ﻿using CleanChat.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-//using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -22,37 +22,34 @@ namespace CleanChat.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            try
+            var clientId = HttpContext.Session.GetString("ClientId");
+            var clientName = HttpContext.Session.GetString("ClientName");
+
+            // Pass userId to the Home view
+            ViewBag.clientId = clientId;
+            ViewBag.clientName = clientName;
+            using (var httpClient = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync("api/Topics");
                 var api = await response.Content.ReadFromJsonAsync<ApiResponse>();
                 if (api?.Code != "0")
                 {
-                    return View("Error");
-                } 
-                var data = (api?.ResponseData)?.ToString();
-                var topicRevs = JsonSerializer.Deserialize<List<TopicRev>>(data!) ?? new List<TopicRev>();
-                foreach (var topicRev in topicRevs)
-                {
-                    Console.WriteLine($"{topicRev.topicId} : {topicRev.topicName}");
-                }
-                List<Topic> topics = topicRevs.Select(c => new Topic
-                {
-                    TopicId = c.topicId,
-                    TopicName = c.topicName,
-                }).ToList();
-                return View("Index", topics);
-            } catch (Exception ex)
-            {
-                Console.WriteLine($"Exception: {ex.Message}");
-            }
-            return View();
-        }
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    var apiResponseObj = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
 
-        [Route("Home/Topic/{id:int}")]
-        public IActionResult Topic(int id)
-        {
-            return View(id);
+                    if (apiResponseObj.Code == "0") // assuming success response has code "200"
+                    {
+                        var topics = JsonConvert.DeserializeObject<List<Topic>>(apiResponseObj.ResponseData.ToString());
+                        return View(topics);
+                    }
+                    else
+                    {
+                        // handle error response
+                        return View("Error");
+                    }
+                }
+                return View();
+            }
         }
 
         public IActionResult CreateTopic()
@@ -83,6 +80,41 @@ namespace CleanChat.Web.Controllers
         //    var topic = _topicRepository.GetTopic(topicId);
         //    return View(topic);
         //}
+
+        public async Task<IActionResult> Topic(int topicId)
+        {
+            // Use the 'topicId' parameter as needed, e.g., retrieve data from a database
+            // Pass any necessary data to the view if required
+            var clientId = HttpContext.Session.GetString("ClientId");
+            var clientName = HttpContext.Session.GetString("ClientName");
+
+            // Pass userId to the Home view
+            ViewBag.clientId = clientId;
+            ViewBag.clientName = clientName;
+            ViewData["topicId"] = topicId;
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://localhost:7221/api/Messages/{topicId}"))
+                {
+                    
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+
+
+                    var apiResponseObj = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
+                    if (apiResponseObj.Code == "0") // assuming success response has code "200"
+                    {
+                        var messages = JsonConvert.DeserializeObject<List<Message>>(apiResponseObj.ResponseData.ToString());
+                        return View(messages);
+                    }
+                    else
+                    {
+                        // handle error response
+                        return View("Error");
+                    }
+                }
+            }
+        }
 
         [HttpPost]
         public IActionResult PostMessage(int topicId, string messageText)

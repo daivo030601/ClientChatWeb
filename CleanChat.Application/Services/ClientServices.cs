@@ -27,6 +27,7 @@ namespace CleanChat.Application.Services
             if ( result != null ) 
             {
                 response.ClientId = result.ClientId;
+                response.ClientName = result.Name;
                 return response;
             }
             return null;
@@ -38,7 +39,10 @@ namespace CleanChat.Application.Services
             Client? result = _repository.Login( entity );
             if ( result != null ) 
             {
-                LoginReponse response = new() { ClientId = result.ClientId};
+                LoginReponse response = new() { 
+                    ClientId = result.ClientId,
+                    ClientName = result.Name,
+                };
                 return response;
             }
             return null;

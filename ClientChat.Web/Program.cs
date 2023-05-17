@@ -2,12 +2,14 @@ using CleanChat.Application.Repositories;
 using CleanChat.Application.Services.Interface;
 using CleanChat.Application.Services;
 using CleanChat.Infrastructure;
+using CleanChat.Web.Socket;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<HttpClient, HttpClient>();
+<<<<<<< HEAD
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -15,6 +17,10 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+=======
+builder.Services.AddWebSocketManager();
+builder.Services.AddSession();
+>>>>>>> main
 
 var app = builder.Build();
 
@@ -27,9 +33,12 @@ if ( !app.Environment.IsDevelopment() )
 }
 
 app.UseHttpsRedirection();
+
+app.UseWebSockets();
+app.MapWebSocketManager("/wss", app.Services.GetService<ChatMessageHandler>());
 app.UseStaticFiles();
 
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();

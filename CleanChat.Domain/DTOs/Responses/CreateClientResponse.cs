@@ -9,5 +9,6 @@ namespace CleanChat.Domain.DTOs.Responses
     public class CreateClientResponse
     {
         public int ClientId { get; set; }
+        public string ClientName { get; set; }
     }
 }
