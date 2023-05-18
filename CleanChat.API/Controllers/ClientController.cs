@@ -66,11 +66,6 @@ namespace CleanChat.API.Controllers
         {
             try
             {
-                if (request.ClientName.GetType() != typeof(string) || request.Password.GetType() != typeof(string))
-                {
-                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, request));
-                }
-
                 var response = _services.CreateClient(request);
                 if (response == null)
                 {

@@ -70,7 +70,7 @@ namespace CleanChat.API.Tests.ControllerTests.TopicTests
             var apiResponse = (ApiResponse)notFoundResult.Value;
 
             Assert.NotNull(apiResponse);
-            Assert.IsType<ClientsTopicRequest>(apiResponse.ResponseData);
+            Assert.Null(apiResponse.ResponseData);
             Assert.Equal("2", apiResponse.Code);
         }
     }

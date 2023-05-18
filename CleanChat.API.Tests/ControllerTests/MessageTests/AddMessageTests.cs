@@ -59,8 +59,9 @@ namespace CleanChat.API.Tests.ControllerTests.MessageTests
             var response = new AddedMessageResponse()
             {
                 MessageId = 0,
-
             };
+            
+           
             messageService.Setup(m => m.AddMessage(It.IsAny<MessageSendDto>())).Returns(response);
             var messageController = new MessageController(messageService.Object);
 
@@ -72,9 +73,9 @@ namespace CleanChat.API.Tests.ControllerTests.MessageTests
             var apiResponse = (ApiResponse)badRequestResult.Value;
 
             Assert.NotNull(apiResponse);
+            Assert.Null(apiResponse.ResponseData);
             Assert.Equal("4", apiResponse.Code);
-            response.MessageResponse = "Unable to add message";
-            Assert.Equal(response, apiResponse.ResponseData);
+            
         }
     }
 }

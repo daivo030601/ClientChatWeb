@@ -36,7 +36,7 @@ namespace CleanChat.API.Response
                     break;
                 case ResponseType.Failure:
                     response.Code = "4";
-                    response.Message = "Fail";
+                    response.Message = "Failed";
                     break;
             }
             return response;

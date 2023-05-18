@@ -55,7 +55,7 @@ namespace CleanChat.API.Tests.ControllerTests.TopicTests
         public void GetAllTopicsEmpty()
         {
             var topicService = new Mock<ITopicService>();
-            var expected = new List<GetTopicResponse>();
+           List<GetTopicResponse>? expected = new List<GetTopicResponse>();
             
             topicService.Setup(x => x.GetAllTopics()).Returns(expected);
             var topicController = new TopicController(topicService.Object);
@@ -67,12 +67,13 @@ namespace CleanChat.API.Tests.ControllerTests.TopicTests
             var apiResponse = (ApiResponse)okResult.Value;
 
             Assert.NotNull(apiResponse);
-            Assert.IsType<List<GetTopicResponse>>(apiResponse.ResponseData);
             Assert.Equal(expected, apiResponse.ResponseData);
+            Assert.Equal("Success", apiResponse.Message);
+
         }
 
-       
 
-        
+
+
     }
 }
