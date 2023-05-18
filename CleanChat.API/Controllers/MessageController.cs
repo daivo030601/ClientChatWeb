@@ -10,7 +10,7 @@ using System;
 
 namespace CleanChat.API.Controllers
 {
-    [Route("api")]
+    [Route("api/v1")]
     [ApiController]
     public class MessageController : ControllerBase
     {
@@ -21,13 +21,13 @@ namespace CleanChat.API.Controllers
             _service = service;
         }
 
-        [HttpGet("Messages")]
+        [HttpGet("messages")]
         public ActionResult<List<MessageReceiveDto>> GetAllMessages()
         {
             try
             {
                 var messages = _service.GetAllMessages();
-                if (messages.Count == 0)
+                if (messages?.Count == 0)
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
                 }
@@ -39,12 +39,12 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("Message/{MessageId}")]
-        public ActionResult<MessageReceiveDto> GetMessageById(int MessageId)
+        [HttpGet("messages/{messageId}")]
+        public ActionResult<MessageReceiveDto> GetMessageById(int messageId)
         {
             try
             {
-                var message = _service.GetMessageById(MessageId);
+                var message = _service.GetMessageById(messageId);
                 if (message == null)
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
@@ -57,12 +57,12 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("Messages/{TopicId}")]
-        public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int TopicId)
+        [HttpGet("topics/{topicId}/messages")]
+        public ActionResult<List<MessageReceiveDto>> GetMessagesByTopic(int topicId)
         {
             try
             {
-                var messages = _service.GetMessagesByTopic(TopicId);
+                var messages = _service.GetMessagesByTopic(topicId);
                 if (messages == null)
                 {
                     return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
@@ -75,7 +75,7 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpPost("Message")]
+        [HttpPost("messages")]
         public ActionResult<AddedMessageResponse> AddMessage(MessageSendDto message)
         {
             try

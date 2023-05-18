@@ -37,7 +37,7 @@ namespace CleanChat.Web.Controllers
                     Password = user.Password
                 };
                 var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("https://localhost:7221/api/Login", content);
+                var response = await _httpClient.PostAsync("https://localhost:7221/api/v1/auth/login", content);
                 response.EnsureSuccessStatusCode();
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var loginResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
@@ -84,7 +84,7 @@ namespace CleanChat.Web.Controllers
                     Password = user.Password
                 };
                 var request = new StringContent(JsonConvert.SerializeObject(createClientObj), Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("https://localhost:7221/api/Create", request);
+                var response = await _httpClient.PostAsync("https://localhost:7221/api/v1/auth/signup", request);
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var createClientResponse = JsonConvert.DeserializeObject<ApiResponse>(responseContent);
                 if ( createClientResponse != null && createClientResponse.Code == "0" )

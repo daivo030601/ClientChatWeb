@@ -14,7 +14,7 @@ namespace CleanChat.Application.Interfaces
         public LoginReponse? Login( LoginRequest request );
         public CreateClientResponse? CreateClient( CreateClientRequest client );
         public SubscribeTopicResponse? SubscribeTopic(SubscribeTopicRequest request);
-        public SubscribeTopicResponse UnsubscribeTopic(SubscribeTopicRequest request);
+        public SubscribeTopicResponse? UnsubscribeTopic(SubscribeTopicRequest request);
 
         public List<TopicClientResponse>? GetTopicsFromClient(TopicsClientRequest request);
     }

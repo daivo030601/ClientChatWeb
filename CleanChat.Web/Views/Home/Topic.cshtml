@@ -54,7 +54,7 @@
                 topicId: @ViewData["topicId"]
             };
 
-            fetch('https://localhost:7221/api/Message', {
+            fetch('https://localhost:7221/api/v1/messages', {
                 method: 'POST',
                 headers: {
                     'Accept': '*/*',

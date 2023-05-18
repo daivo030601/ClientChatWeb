@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CleanChat.API.Controllers
 {
-    [Route("api")]
+    [Route("api/v1/topics")]
     [ApiController]
     public class TopicController : ControllerBase
     {
@@ -20,7 +20,7 @@ namespace CleanChat.API.Controllers
         {
             _service = service;
         }
-        [HttpGet("Topics")]
+        [HttpGet()]
         public ActionResult<List<GetTopicResponse>> Get()
         {
             try
@@ -34,7 +34,7 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpPost("Topic")]
+        [HttpPost()]
         public ActionResult<CreateTopicResponse> CreateTopic (CreateTopicRequest topic)
         {
             try
@@ -47,12 +47,12 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpGet("Clients/{TopicId}")]
-        public ActionResult<List<ClientTopicResponse>> Get(int TopicId)
+        [HttpGet("{topicId}/clients")]
+        public ActionResult<List<ClientTopicResponse>> Get(int topicId)
         {
             try
             {
-                var request = new ClientsTopicRequest() { TopicId = TopicId };
+                var request = new ClientsTopicRequest() { TopicId = topicId };
                 var result = _service.GetClientsFromTopic(request);
                 if (result == null)
                 {

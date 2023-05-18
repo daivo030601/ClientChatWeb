@@ -48,7 +48,7 @@
                     // Perform the unsubscribe logic here
                     // You can use the topicId to identify the topic being unsubscribed from
                     $.ajax({
-                        url: "https://localhost:7221/api/Client/Topic",
+                        url: "https://localhost:7221/api/v1/clients/topics",
                         type: "DELETE",
                         data: JSON.stringify({ clientId: clientId, topicId: topicId }),
                         contentType: "application/json",
@@ -66,7 +66,7 @@
                     // Perform the subscribe logic here
                     // You can use the topicId to identify the topic being subscribed to
                     $.ajax({
-                        url: "https://localhost:7221/api/Client/Topic",
+                        url: "https://localhost:7221/api/v1/clients/topics",
                         type: "POST",
                         data: JSON.stringify({ clientId: clientId, topicId: topicId }),
                         contentType: "application/json",
@@ -87,7 +87,7 @@
                 var newTopicName = $("#newTopicInput").val();
                 if (newTopicName) {
                     $.ajax({
-                        url: "https://localhost:7221/api/Topic",
+                        url: "https://localhost:7221/api/v1/topics",
                         type: "POST",
                         data: JSON.stringify({ topicName: newTopicName }),
                         contentType: "application/json",

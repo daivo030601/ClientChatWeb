@@ -61,13 +61,17 @@ namespace CleanChat.Application.Services
             return null;
         }
 
-        public SubscribeTopicResponse UnsubscribeTopic(SubscribeTopicRequest request)
+        public SubscribeTopicResponse? UnsubscribeTopic(SubscribeTopicRequest request)
         {
             SubscribeTopicResponse response = new SubscribeTopicResponse();
             ClientTopic entity = new() { TopicId= request.TopicId, ClientId= request.ClientId };
             var result = _repository.UnsubscribeTopic(entity);
-            response.Status = result;
-            return response;
+            if ( result != null )
+            {
+                response.Status = result;
+                return response;
+            }
+            return null;
         }
 
         public List<TopicClientResponse>? GetTopicsFromClient(TopicsClientRequest request)

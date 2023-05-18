@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CleanChat.API.Controllers
 {
-    [Route("api")]
+    [Route("api/v1/clients")]
     [ApiController]
     public class ClientController : ControllerBase
     {
@@ -19,33 +19,13 @@ namespace CleanChat.API.Controllers
             _services = clientServices;
         }
 
-        // GET api/<ClientController>/
-        [HttpPost("Login")]
-        public ActionResult<LoginReponse> Login(LoginRequest request)
+        // POST api/<ClientController>/
+        [HttpGet("{clientId}/topics")]
+        public ActionResult<List<TopicClientResponse>> Get(int clientId)
         {
             try
             {
-
-                LoginReponse? response = _services.Login(request);
-                if (response != null)
-                {
-                    return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
-                }
-
-                return NotFound(ResponseHandler.GetApiResponse(ResponseType.NotFound, null));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, ex.Message));
-            }
-        }
-
-        [HttpGet("Topics/{ClientId}")]
-        public ActionResult<List<TopicClientResponse>> Get(int ClientId)
-        {
-            try
-            {
-                var request = new TopicsClientRequest() { ClientId = ClientId };
+                var request = new TopicsClientRequest() { ClientId = clientId };
                 var result = _services.GetTopicsFromClient(request);
                 if (result == null)
                 {
@@ -60,26 +40,7 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        // POST api/<ClientController>
-        [HttpPost("Create")]
-        public ActionResult<CreateClientResponse> CreateClient(CreateClientRequest request)
-        {
-            try
-            {
-                var response = _services.CreateClient(request);
-                if (response == null)
-                {
-                    return BadRequest(ResponseHandler.GetApiResponse(ResponseType.AlreadyExist, null));
-                }
-                return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, e));
-            }
-        }
-
-        [HttpPost("Client/Topic")]
+        [HttpPost("topics")]
         public ActionResult<SubscribeTopicResponse> SubscribeTopic(SubscribeTopicRequest request)
         {
             try
@@ -101,7 +62,7 @@ namespace CleanChat.API.Controllers
             }
         }
 
-        [HttpDelete("Client/Topic")]
+        [HttpDelete("topics")]
         public ActionResult<SubscribeTopicResponse> UnsubscribeTopic(SubscribeTopicRequest request)
         {
             try

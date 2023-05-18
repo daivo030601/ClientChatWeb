@@ -19,9 +19,9 @@ namespace CleanChat.Web.Controllers
             ViewBag.clientName = clientName;
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:7221/api/Topics"))
+                using (var response = await httpClient.GetAsync("https://localhost:7221/api/v1/topics"))
                 {
-                    var SubedResponse = await httpClient.GetAsync($"https://localhost:7221/api/Topics/{clientId}");
+                    var SubedResponse = await httpClient.GetAsync($"https://localhost:7221/api/v1/clients/{clientId}/topics");
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     string apiSubedResponse = await SubedResponse.Content.ReadAsStringAsync();
 
@@ -92,7 +92,7 @@ namespace CleanChat.Web.Controllers
 
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"https://localhost:7221/api/Messages/{topicId}"))
+                using (var response = await httpClient.GetAsync($"https://localhost:7221/api/v1/topics/{topicId}/messages"))
                 {
                     
                     string apiResponse = await response.Content.ReadAsStringAsync();
