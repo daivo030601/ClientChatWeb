@@ -17,6 +17,14 @@
                 </div>
             }
         </div>
+        <div class="mt-4">
+            <h2>Create New Topic</h2>
+            <hr />
+            <div class="input-group">
+                <input type="text" id="newTopicInput" class="form-control" placeholder="Enter topic name" />
+                <button id="createTopicBtn" class="btn btn-primary">Create</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -72,6 +80,26 @@
 
                     $(this).text("Unsubscribe");
                     $(this).data("subscribed", true);
+                }
+            });
+
+            $("#createTopicBtn").click(function () {
+                var newTopicName = $("#newTopicInput").val();
+                if (newTopicName) {
+                    $.ajax({
+                        url: "https://localhost:7221/api/Topic",
+                        type: "POST",
+                        data: JSON.stringify({ topicName: newTopicName }),
+                        contentType: "application/json",
+                        success: function () {
+                            // Reload the page after creating the new topic
+                            location.reload();
+                        },
+                        error: function () {
+                            // Handle error if the topic creation fails
+                            console.log("Failed to create the new topic.");
+                        }
+                    });
                 }
             });
         });

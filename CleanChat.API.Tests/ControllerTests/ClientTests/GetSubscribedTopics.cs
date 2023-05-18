@@ -20,10 +20,7 @@ namespace CleanChat.API.Tests.ControllerTests.ClientTests
         {
             var clientService = new Mock<IClientServices>();
 
-            var request = new TopicsClientRequest()
-            {
-                ClientId = 1
-            };
+            
             var expected = new List<TopicClientResponse>()
             {
                 new TopicClientResponse()
@@ -44,7 +41,7 @@ namespace CleanChat.API.Tests.ControllerTests.ClientTests
             var clientController = new ClientController(clientService.Object);
 
             // Act
-            var result = clientController.GetSubscribedTopics(1);
+            var result = clientController.Get(1);
 
 
             // Assert
@@ -74,7 +71,7 @@ namespace CleanChat.API.Tests.ControllerTests.ClientTests
             var clientController = new ClientController(clientService.Object);
 
             // Act
-            var result = clientController.GetSubscribedTopics(1);
+            var result = clientController.Get(1);
 
 
             // Assert
