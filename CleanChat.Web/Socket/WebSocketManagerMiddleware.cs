@@ -2,6 +2,7 @@
 
 namespace CleanChat.Web.Socket
 {
+    //custom a middleware to check the request 
     public class WebSocketManagerMiddleware
     {
         private readonly RequestDelegate _next;
@@ -16,6 +17,7 @@ namespace CleanChat.Web.Socket
 
         public async Task Invoke(HttpContext context)
         {
+            //if request is WebSocketRequest then connect and run a new thread to receive message
             if (!context.WebSockets.IsWebSocketRequest)
                 return;
 
@@ -39,7 +41,7 @@ namespace CleanChat.Web.Socket
 
             });
         }
-
+        //run new thread to receive new message real time
         private async Task Receive(WebSocket socket, Action<WebSocketReceiveResult, byte[]> handleMessage)
         {
             var buffer = new byte[1024 * 4];
