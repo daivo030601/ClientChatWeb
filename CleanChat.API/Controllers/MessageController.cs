@@ -22,7 +22,7 @@ namespace CleanChat.API.Controllers
         }
 
         [HttpGet("Messages")]
-        public ActionResult GetAllMessages()
+        public ActionResult<List<MessageReceiveDto>> GetAllMessages()
         {
             try
             {
@@ -76,7 +76,7 @@ namespace CleanChat.API.Controllers
         }
 
         [HttpPost("Message")]
-        public ActionResult AddMessage(MessageSendDto message)
+        public ActionResult<AddedMessageResponse> AddMessage(MessageSendDto message)
         {
             try
             {

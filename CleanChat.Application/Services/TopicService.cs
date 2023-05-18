@@ -13,7 +13,7 @@ namespace CleanChat.Application.Services
 {
     public class TopicService : ITopicService
     {
-        public ITopicRepository _topicRepository { get; set; }
+        private readonly ITopicRepository _topicRepository;
         public TopicService(ITopicRepository topicRepository)
         {
             _topicRepository = topicRepository;
