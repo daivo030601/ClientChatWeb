@@ -73,14 +73,14 @@ namespace CleanChat.API.Tests.ControllerTests.ClientTests
 
 
             // Assert
-            Assert.IsType<OkObjectResult>(result.Result);
+            Assert.IsType<BadRequestObjectResult>(result.Result);
 
-            var okResult = (OkObjectResult)result.Result;
+            var okResult = (BadRequestObjectResult)result.Result;
             var apiResponse = (ApiResponse)okResult.Value;
 
             Assert.NotNull(apiResponse);
             Assert.Equal("3", apiResponse.Code);
-            Assert.Equal(request, apiResponse.ResponseData);
+            Assert.Null(apiResponse.ResponseData);
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace CleanChat.API.Tests.ControllerTests.ClientTests
 
             Assert.NotNull(apiResponse);
             Assert.Equal("2", apiResponse.Code);
-            Assert.Equal(request, apiResponse.ResponseData);
+            Assert.Null(apiResponse.ResponseData);
         }
     }
 }
