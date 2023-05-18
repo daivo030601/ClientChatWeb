@@ -3,8 +3,10 @@ using System.Text;
 
 namespace CleanChat.Web.Socket
 {
+    //handle all connect and disconnect event from socket, handle send and receive
     public abstract class WebSocketHandler
     {
+        //using class WebSocketConnectionManager to handle all event with socket
         protected ConnectionManager WebSocketConnectionManager { get; set; }
 
         public WebSocketHandler(ConnectionManager webSocketConnectionManager)
@@ -24,6 +26,7 @@ namespace CleanChat.Web.Socket
 
         public async Task SendMessageAsync(WebSocket socket, string message)
         {
+            //check ensures that the message is only sent when the connection is open and ready.
             if (socket.State != WebSocketState.Open)
                 return;
 
@@ -31,8 +34,8 @@ namespace CleanChat.Web.Socket
                                                                     offset: 0,
                                                                     count: message.Length),
                                     messageType: WebSocketMessageType.Text,
-                                    endOfMessage: true,
-                                    cancellationToken: CancellationToken.None);
+                                    endOfMessage: true, //make sure this is the last one in the sequence
+                                    cancellationToken: CancellationToken.None);//no cancellation is requested.
         }
 
 
@@ -48,7 +51,7 @@ namespace CleanChat.Web.Socket
                     WebSocketConnectionManager.SubcribeSocket(pair.Value, topic);
             }
         }
-
+        //split message with "," to get topic part and message part
         public async Task SendMessageToAllAsync(string message)
         {
             string[] msgParts = message.Split(",");
@@ -58,7 +61,7 @@ namespace CleanChat.Web.Socket
                     await SendMessageAsync(socket, msgParts[1]);
             }
         }
-
+        //asbtract to use custom code for OnConnected and OnDisconnected methods
         public abstract Task ReceiveAsync(WebSocket socket, WebSocketReceiveResult result, byte[] buffer);
     }
 }
