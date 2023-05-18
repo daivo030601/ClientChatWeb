@@ -56,8 +56,8 @@ namespace ClientChat.API.Tests.ControllerTests.ClientTests
         {
             var clientService = new Mock<IClientServices>();
 
-            LoginReponse response = null;
-            var expected = new LoginRequest()
+            LoginReponse? response = null;
+            var request = new LoginRequest()
             {
                 ClientName = "test",
                 Password = "test",
@@ -68,17 +68,17 @@ namespace ClientChat.API.Tests.ControllerTests.ClientTests
             var clientController = new ClientController(clientService.Object);
 
             // Act
-            var result = clientController.Login(expected);
+            var result = clientController.Login(request);
 
             // Assert
-            Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.IsType<NotFoundObjectResult>(result.Result);
 
-            var notFoundResult = (BadRequestObjectResult)result.Result;
+            var notFoundResult = (NotFoundObjectResult)result.Result;
             var apiResponse = (ApiResponse)notFoundResult.Value;
 
             Assert.NotNull(apiResponse);
             Assert.Equal("2", apiResponse.Code);
-            Assert.Equal(expected, apiResponse.ResponseData);
+            Assert.Null(apiResponse.ResponseData);
 
 
         }      

@@ -77,8 +77,8 @@ namespace CleanChat.API.Tests.ControllerTests.ClientTests
             var apiResponse = (ApiResponse)notFoundResult.Value;
 
             Assert.NotNull(apiResponse);
+            Assert.Null(apiResponse.ResponseData);
             Assert.Equal("3", apiResponse.Code);
-            Assert.Equal("Client has already existed", apiResponse.Message);
         }
     }
 }

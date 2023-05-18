@@ -85,7 +85,8 @@ namespace CleanChat.API.Tests.ControllerTests.MessageTests
 
             Assert.NotNull(apiResponse);
             Assert.Equal("2", apiResponse.Code);
-            Assert.Equal("Messages not found",apiResponse.ResponseData);
+            Assert.Equal("Not Found",apiResponse.Message);
+            Assert.Null(apiResponse.ResponseData);
         }
         
     }

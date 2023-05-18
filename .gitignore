@@ -13,7 +13,6 @@ CleanChat.Infrastructure\obj\Debug\net6.0
 CleanChat.Infrastructure\bin\Debug\net6.0
 CleanChat.Domain\obj\Debug\net6.0
 CleanChat.Domain\bin\Debug\net6.0
-.vs\
 
 # User-specific files
 *.rsuser
@@ -21,6 +20,7 @@ CleanChat.Domain\bin\Debug\net6.0
 *.user
 bin
 obj
+.vs
 *.userosscache
 *.sln.docstates
 

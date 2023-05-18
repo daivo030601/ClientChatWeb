@@ -64,7 +64,7 @@ namespace CleanChat.API.Tests.ControllerTests.ClientTests
             {
                 ClientId = 1
             };
-            var expected = new List<TopicClientResponse>();
+            List<TopicClientResponse>? expected = null;
 
             clientService.Setup(c => c.GetTopicsFromClient(It.IsAny<TopicsClientRequest>())).Returns(expected);
 
@@ -82,7 +82,7 @@ namespace CleanChat.API.Tests.ControllerTests.ClientTests
 
             Assert.NotNull(apiResponse);
             Assert.Equal("2", apiResponse.Code);
-            Assert.Equal("Client hasn't subscribe any topic yet", apiResponse.ResponseData);
+            Assert.Null(apiResponse.ResponseData);
         }
     }
 }

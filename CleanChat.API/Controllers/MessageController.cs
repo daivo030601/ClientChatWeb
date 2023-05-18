@@ -40,7 +40,7 @@ namespace CleanChat.API.Controllers
         }
 
         [HttpGet("Message/{MessageId}")]
-        public ActionResult GetMessageById(int MessageId)
+        public ActionResult<MessageReceiveDto> GetMessageById(int MessageId)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace CleanChat.API.Controllers
                 {
                     return Ok(ResponseHandler.GetApiResponse(ResponseType.Success, response));
                 }
-                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, response));
+                return BadRequest(ResponseHandler.GetApiResponse(ResponseType.Failure, null));
             }
             catch (Exception e)
             {
